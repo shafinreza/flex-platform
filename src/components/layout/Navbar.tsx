@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, ShoppingBag, User, X } from "lucide-react";
+import { Menu, User, X } from "lucide-react";
 import { useState } from "react";
+import CartDrawer from "@/components/cart/CartDrawer";
 
 const navItems = [
   { label: "Shop", href: "/shop" },
@@ -41,13 +42,7 @@ export default function Navbar() {
             <User size={20} />
           </Link>
 
-          <Link
-            href="/shop"
-            aria-label="Cart"
-            className="grid h-11 w-11 place-items-center rounded-full border-2 border-[#4C260F] bg-white transition hover:bg-[#EFB236]"
-          >
-            <ShoppingBag size={20} />
-          </Link>
+          <CartDrawer />
 
           <Link
             href="/shop"
@@ -79,6 +74,8 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
+
+            <CartDrawer />
 
             <Link
               href="/shop"
