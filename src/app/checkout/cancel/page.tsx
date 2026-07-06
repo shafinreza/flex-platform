@@ -1,19 +1,26 @@
 import Link from "next/link";
+import FlexButton from "@/components/ui/FlexButton";
 
 export default function CheckoutCancelPage() {
   return (
-    <main className="min-h-screen px-6 py-24 text-center">
-      <h1 className="text-4xl font-bold">Checkout cancelled</h1>
-      <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-        No payment was taken. Your cart is still available.
-      </p>
+    <main className="px-5 py-20">
+      <div className="mx-auto max-w-[760px] rounded-[18px] border border-[rgba(15,23,32,.10)] bg-white p-8 text-center">
+        <p className="mb-3 text-sm font-bold uppercase tracking-[0.18em] text-[#6f855f]">
+          Checkout cancelled
+        </p>
 
-      <Link
-        href="/shop"
-        className="mt-8 inline-flex rounded-full bg-black px-6 py-3 font-semibold text-white"
-      >
-        Back to shop
-      </Link>
+        <h1 className="text-[56px] font-black leading-[.9] tracking-[-0.05em]">
+          NO PAYMENT TAKEN
+        </h1>
+
+        <p className="mx-auto mt-5 max-w-xl text-[#5c6773]">
+          Your cart has been saved. You can return to checkout whenever you’re ready.
+        </p>
+
+        <Link href="/shop">
+          <FlexButton className="mt-8">Back to Shop</FlexButton>
+        </Link>
+      </div>
     </main>
   );
 }

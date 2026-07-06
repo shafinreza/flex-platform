@@ -8,19 +8,23 @@ export type CartItem = {
   quantity: number;
 };
 
+type DetailedCartItem = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number;
+};
+
 type CartContextType = {
   items: CartItem[];
-  detailedItems: {
-    id: string;
-    name: string;
-    price: number;
-    image: string;
-    quantity: number;
-  }[];
+  detailedItems: DetailedCartItem[];
   addItem: (id: string) => void;
   removeItem: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
   subtotal: number;
+  checkout: () => Promise<void>;
 };
 
 const CART_STORAGE_KEY = "flex-cart";
@@ -60,7 +64,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (!hasLoadedCart) return;
-
     window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
   }, [items, hasLoadedCart]);
 
@@ -82,9 +85,41 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems((current) => current.filter((item) => item.id !== id));
   }
 
+  function updateQuantity(id: string, quantity: number) {
+    if (quantity <= 0) {
+      removeItem(id);
+      return;
+    }
+
+    setItems((current) =>
+      current.map((item) =>
+        item.id === id ? { ...item, quantity } : item
+      )
+    );
+  }
+
   function clearCart() {
     setItems([]);
     window.localStorage.removeItem(CART_STORAGE_KEY);
+  }
+
+  async function checkout() {
+    const response = await fetch("/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ items }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data.url) {
+      alert("Checkout failed. Please try again.");
+      return;
+    }
+
+    window.location.href = data.url;
   }
 
   const detailedItems = useMemo(
@@ -92,7 +127,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       items
         .map((item) => {
           const product = catalog.find((catalogItem) => catalogItem.id === item.id);
-
           if (!product) return null;
 
           return {
@@ -100,13 +134,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             quantity: item.quantity,
           };
         })
-        .filter(Boolean) as {
-        id: string;
-        name: string;
-        price: number;
-        image: string;
-        quantity: number;
-      }[],
+        .filter(Boolean) as DetailedCartItem[],
     [items]
   );
 
@@ -126,8 +154,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         detailedItems,
         addItem,
         removeItem,
+        updateQuantity,
         clearCart,
         subtotal,
+        checkout,
       }}
     >
       {children}
