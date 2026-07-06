@@ -1,32 +1,37 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, User, X } from "lucide-react";
+import { Camera, Menu, X } from "lucide-react";
 import { useState } from "react";
 import CartDrawer from "@/components/cart/CartDrawer";
 
 const navItems = [
-  { label: "Shop", href: "/shop" },
-  { label: "Recipes", href: "/recipes" },
-  { label: "About", href: "/about" },
+  { label: "Products", href: "/shop" },
+  { label: "Story", href: "#story" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Blog", href: "#blog" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-[#4C260F] bg-[#EFDFC7]/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-        <Link href="/" className="text-4xl font-black tracking-tight text-[#0B864E]">
+    <header className="sticky top-0 z-50 border-b border-[#dfe4dc] bg-white/95 backdrop-blur">
+      <div className="mx-auto flex h-[68px] max-w-[1120px] items-center justify-between px-5">
+        <Link
+          href="/"
+          className="bg-[#708963] px-2 py-1 text-2xl font-black leading-none tracking-[-0.08em] text-white"
+        >
           FLEX
         </Link>
 
-        <nav className="hidden items-center gap-10 md:flex">
+        <nav className="hidden items-center gap-8 md:flex">
           {navItems.map((item) => (
             <Link
-              key={item.href}
+              key={item.label}
               href={item.href}
-              className="text-sm font-black uppercase tracking-[0.18em] text-[#4C260F] transition hover:text-[#0B864E]"
+              className="text-xs font-medium uppercase tracking-[0.42em] text-[#111923]"
             >
               {item.label}
             </Link>
@@ -35,55 +40,45 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-3 md:flex">
           <Link
-            href="/account"
-            aria-label="Account"
-            className="grid h-11 w-11 place-items-center rounded-full border-2 border-[#4C260F] bg-white transition hover:bg-[#EFB236]"
-          >
-            <User size={20} />
-          </Link>
-
-          <CartDrawer />
-
-          <Link
             href="/shop"
-            className="rounded-full border-2 border-[#4C260F] bg-[#0B864E] px-6 py-3 text-sm font-black uppercase tracking-[0.14em] text-white shadow-[4px_4px_0_#4C260F] transition hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
+            className="rounded-xl border border-[#111923]/20 px-5 py-3 text-xs font-black uppercase tracking-[0.16em]"
           >
-            Shop Now
+            Shop FLEX
+          </Link>
+          <CartDrawer />
+          <Link
+            href="https://www.instagram.com/eatflex.uk"
+            target="_blank"
+            className="grid h-11 w-11 place-items-center rounded-xl border border-[#111923]/15"
+            aria-label="Instagram"
+          >
+            <Camera size={17} />
           </Link>
         </div>
 
         <button
-          className="grid h-11 w-11 place-items-center rounded-full border-2 border-[#4C260F] bg-white md:hidden"
+          className="grid h-11 w-11 place-items-center rounded-xl border border-[#111923]/15 md:hidden"
           onClick={() => setOpen(!open)}
           aria-label="Toggle menu"
         >
-          {open ? <X size={24} /> : <Menu size={24} />}
+          {open ? <X /> : <Menu />}
         </button>
       </div>
 
       {open && (
-        <div className="border-t-2 border-[#4C260F] bg-[#EFDFC7] px-5 py-6 md:hidden">
-          <nav className="flex flex-col gap-5">
+        <div className="border-t border-[#dfe4dc] bg-white px-5 py-6 md:hidden">
+          <nav className="mx-auto flex max-w-[1120px] flex-col gap-5">
             {navItems.map((item) => (
               <Link
-                key={item.href}
+                key={item.label}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="text-xl font-black uppercase tracking-wide text-[#4C260F]"
+                className="text-sm font-black uppercase tracking-[0.2em]"
               >
                 {item.label}
               </Link>
             ))}
-
             <CartDrawer />
-
-            <Link
-              href="/shop"
-              onClick={() => setOpen(false)}
-              className="rounded-full border-2 border-[#4C260F] bg-[#0B864E] px-6 py-4 text-center font-black uppercase tracking-wide text-white shadow-[4px_4px_0_#4C260F]"
-            >
-              Shop Now
-            </Link>
           </nav>
         </div>
       )}

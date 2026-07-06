@@ -2,31 +2,29 @@ import ProductCard from "@/components/shop/ProductCard";
 
 export default function QuickBuy() {
   return (
-    <section className="bg-white px-6 py-20">
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-10 text-center">
-          <p className="mb-2 text-sm font-black uppercase tracking-[0.22em] text-[#0B864E]">
-            Shop FLEX
-          </p>
+    <section id="products" className="px-5 py-[72px]">
+      <div className="mx-auto max-w-[1120px]">
+        <h2 className="mb-3 text-[62px] font-black leading-[.9] tracking-[-0.04em]">
+          OUR PRODUCTS
+        </h2>
 
-          <h2 className="text-5xl font-black leading-tight text-[#4C260F] md:text-6xl">
-            Choose how you FLEX.
-          </h2>
-        </div>
+        <p className="mb-7 max-w-[62ch] text-[#5c6773]">
+          We’re starting with one SKU — and making it flawless. More products are coming.
+        </p>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-5">
           <ProductCard
-            badge="Everyday"
-            title="Natural Smooth"
-            subtitle="Perfect if you’re trying FLEX for the first time."
+            badge="Available now"
+            title="FLEX Natural Peanut Butter — Smooth"
+            subtitle="100% roasted peanuts. No palm oil. No added sugar."
             price="£5.49"
           />
 
           <ProductCard
             variant="bundle"
-            badge="Most Popular"
-            title="Pack of 6"
-            subtitle="Stock up, save £7.95 and never run out."
+            badge="Best value"
+            title="6 × FLEX Natural Smooth 510g"
+            subtitle="Stock up and save. Same smooth texture, same clean ingredients."
             savings="Save £7.95"
             price="£24.99"
           />

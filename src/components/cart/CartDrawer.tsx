@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { ShoppingBag, Trash2 } from "lucide-react";
 import {
@@ -13,7 +14,35 @@ import FlexButton from "@/components/ui/FlexButton";
 import { useCart } from "@/components/cart/CartProvider";
 
 export default function CartDrawer() {
-  const { items, removeItem, subtotal } = useCart();
+  const { items, detailedItems, removeItem, subtotal } = useCart();
+  const [loading, setLoading] = useState(false);
+
+  async function handleCheckout() {
+    try {
+      setLoading(true);
+
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.url) {
+        throw new Error(data.error || "Checkout failed");
+      }
+
+      window.location.href = data.url;
+    } catch (error) {
+      console.error(error);
+      alert("Checkout failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <Sheet>
@@ -50,7 +79,7 @@ export default function CartDrawer() {
           </div>
         ) : (
           <div className="mt-8 space-y-6">
-            {items.map((item) => (
+            {detailedItems.map((item) => (
               <div
                 key={item.id}
                 className="rounded-[24px] border border-[#4C260F]/15 bg-white p-4"
@@ -100,18 +129,24 @@ export default function CartDrawer() {
 
               <div className="mt-3 flex justify-between text-sm font-semibold text-[#4C260F]/70">
                 <span>Delivery</span>
-                <span>Calculated at checkout</span>
+                <span>£2.99 at checkout</span>
               </div>
 
               <div className="mt-5 border-t border-[#4C260F]/15 pt-5">
                 <div className="flex justify-between text-2xl font-black text-[#4C260F]">
                   <span>Total</span>
-                  <span>£{subtotal.toFixed(2)}</span>
+                  <span>£{(subtotal + 2.99).toFixed(2)}</span>
                 </div>
               </div>
             </div>
 
-            <FlexButton className="w-full">Secure Checkout</FlexButton>
+            <FlexButton
+              onClick={handleCheckout}
+              disabled={loading}
+              className="w-full"
+            >
+              {loading ? "Opening checkout..." : "Secure Checkout"}
+            </FlexButton>
 
             <p className="text-center text-sm font-semibold text-[#4C260F]/60">
               Secure payment powered by Stripe.

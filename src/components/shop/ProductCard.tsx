@@ -3,8 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import FlexButton from "@/components/ui/FlexButton";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import { useCart } from "@/components/cart/CartProvider";
 
 type ProductCardProps = {
@@ -28,73 +26,60 @@ export default function ProductCard({
 }: ProductCardProps) {
   const { addItem } = useCart();
   const isBundle = variant === "bundle";
-
-  const cartItem = isBundle
-    ? {
-        id: "natural-smooth-510g-pack-6",
-        name: "Pack of 6 - FLEX Natural Smooth 510g",
-        price: 24.99,
-        image,
-      }
-    : {
-        id: "natural-smooth-510g",
-        name: "FLEX Natural Smooth 510g",
-        price: 5.49,
-        image,
-      };
+  const productId = isBundle
+    ? "natural-smooth-510g-pack-6"
+    : "natural-smooth-510g";
 
   return (
-    <Card className="overflow-hidden rounded-[24px] border border-[#4C260F]/15 bg-white shadow-sm">
-      <CardContent className="grid gap-8 p-6 md:grid-cols-[0.9fr_1.1fr] md:p-8">
-        <div className="flex min-h-[260px] items-center justify-center rounded-[20px] bg-[#F7F3EA] p-6">
-          <Image
-            src={image}
-            alt={title}
-            width={260}
-            height={260}
-            className="max-h-[260px] w-auto object-contain"
-          />
-        </div>
+    <article className="grid items-center gap-5 rounded-[18px] border border-[rgba(15,23,32,.10)] bg-white p-6 md:grid-cols-[.95fr_1.05fr]">
+      <div className="grid place-items-center rounded-2xl border border-[rgba(15,23,32,.08)] bg-[#f7f9f6] p-5">
+        <Image
+          src={image}
+          alt={title}
+          width={320}
+          height={320}
+          className="max-h-[280px] w-auto object-contain drop-shadow-xl"
+        />
+      </div>
 
-        <div className="flex flex-col justify-center">
-          {badge && (
-            <Badge
-              className={`mb-4 w-fit rounded-full px-4 py-1 text-xs font-bold uppercase ${
-                isBundle ? "bg-[#EF6838]" : "bg-[#0B864E]"
-              } text-white`}
-            >
-              {badge}
-            </Badge>
-          )}
-
-          <h3 className="text-3xl font-black leading-tight text-[#4C260F]">
-            {title}
-          </h3>
-
-          <p className="mt-3 font-medium text-[#4C260F]/70">{subtitle}</p>
-
-          {savings && (
-            <p className="mt-4 w-fit rounded-full bg-[#EFDFC7] px-4 py-2 text-sm font-bold text-[#EF6838]">
-              {savings}
-            </p>
-          )}
-
-          <div className="mt-5 text-4xl font-black text-[#0B864E]">
-            {price}
+      <div>
+        {badge && (
+          <div className="mb-3 inline-block rounded-full bg-[rgba(111,133,95,.14)] px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.12em]">
+            {badge}
           </div>
+        )}
 
-          <FlexButton className="mt-6 w-full" onClick={() => addItem(cartItem)}>
-            Add to Cart
-          </FlexButton>
+        <h3 className="mb-3 text-xl font-bold">{title}</h3>
 
-          <Link
-            href="/products/natural-smooth-510g"
-            className="mt-4 text-center text-sm font-bold text-[#0B864E] underline-offset-4 hover:underline"
-          >
-            View product details
+        <p className="mb-4 max-w-xl text-[#5c6773]">{subtitle}</p>
+
+        <ul className="mb-5 list-disc pl-5 text-[15px] text-[#0f1720]/80">
+          <li><strong>Ingredients:</strong> Roasted peanuts 100%</li>
+          <li><strong>Allergen info:</strong> Contains peanuts</li>
+          <li>No palm oil • No added sugar</li>
+          <li><strong>Protein:</strong> 132g per jar approx.</li>
+        </ul>
+
+        <div className="mb-5 text-3xl font-black text-[#6f855f]">{price}</div>
+
+        {savings && (
+          <p className="mb-4 text-sm font-bold text-[#6f855f]">{savings}</p>
+        )}
+
+        <div className="flex flex-wrap items-center gap-3">
+          <FlexButton onClick={() => addItem(productId)}>Add to Cart</FlexButton>
+
+          <Link href="/products/natural-smooth-510g">
+            <FlexButton variant="outline">View Product</FlexButton>
           </Link>
+
+          {isBundle && (
+            <span className="text-sm text-[#5c6773]">
+              Best for families, gyms and repeat buyers.
+            </span>
+          )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </article>
   );
 }

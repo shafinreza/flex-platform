@@ -2,36 +2,25 @@ import FlexButton from "@/components/ui/FlexButton";
 
 export default function Newsletter() {
   return (
-    <section className="bg-[#0B864E] px-6 py-24 text-white">
-      <div className="mx-auto max-w-4xl text-center">
-
-        <p className="mb-3 text-sm font-black uppercase tracking-[0.22em]">
-          Join Team FLEX
+    <section className="bg-[#07130D] px-6 py-24 text-white">
+      <div className="mx-auto max-w-5xl rounded-[40px] bg-white p-8 text-[#07130D] md:p-14">
+        <p className="mb-4 text-sm font-black uppercase tracking-[0.28em] text-[#00A651]">
+          Join FLEX
         </p>
 
-        <h2 className="text-5xl font-black md:text-7xl">
-          Be the first to hear about
-          <br />
-          new flavours, recipes & offers.
+        <h2 className="max-w-3xl text-4xl font-black leading-tight md:text-6xl">
+          New flavours, recipes and offers — straight to your inbox.
         </h2>
 
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-white/85">
-          We're just getting started. Join the FLEX community and get exclusive
-          launches, healthy recipes and subscriber-only offers.
-        </p>
-
-        <div className="mx-auto mt-10 flex max-w-xl flex-col gap-4 md:flex-row">
+        <div className="mt-10 flex flex-col gap-4 md:flex-row">
           <input
             type="email"
             placeholder="Your email address"
-            className="flex-1 rounded-full border-2 border-[#4C260F] px-6 py-4 text-black outline-none"
+            className="min-h-14 flex-1 rounded-full bg-[#F2F2F2] px-6 font-semibold outline-none"
           />
 
-          <FlexButton variant="secondary">
-            Join Now
-          </FlexButton>
+          <FlexButton className="text-white">Join Now</FlexButton>
         </div>
-
       </div>
     </section>
   );

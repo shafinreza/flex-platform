@@ -1,20 +1,25 @@
 export default function TrustBar() {
-  return (
-    <section className="bg-white px-6 py-6 text-[#4C260F]">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-center md:flex-row">
-        <div className="text-lg font-black">
-          ★★★★★ <span className="text-[#0B864E]">4.3 Amazon Rating</span>
-        </div>
+  const features = [
+    ["100% PEANUTS", "Roasted peanuts only. Nothing else."],
+    ["SUSTAINED ENERGY", "Clean fats + protein for long sessions."],
+    ["WHERE TO BUY", "Available direct from FLEX."],
+    ["NO ARTIFICIALS", "No palm oil. No added sugar. No fillers."],
+  ];
 
-        <div className="flex flex-wrap justify-center gap-4 text-sm font-black uppercase tracking-wide">
-          <span>100% Roasted Peanuts</span>
-          <span>•</span>
-          <span>High Protein</span>
-          <span>•</span>
-          <span>No Added Sugar</span>
-          <span>•</span>
-          <span>No Palm Oil</span>
-        </div>
+  return (
+    <section id="where-to-buy" className="border-y border-[rgba(15,23,32,.12)] bg-white px-5">
+      <div className="mx-auto grid max-w-[1120px] gap-4 py-4 md:grid-cols-4">
+        {features.map(([title, text]) => (
+          <div
+            key={title}
+            className="rounded-xl border border-[rgba(15,23,32,.10)] bg-white p-4"
+          >
+            <div className="mb-1 text-xs font-extrabold uppercase tracking-[0.14em]">
+              {title}
+            </div>
+            <div className="text-[13px] text-[#5c6773]">{text}</div>
+          </div>
+        ))}
       </div>
     </section>
   );
