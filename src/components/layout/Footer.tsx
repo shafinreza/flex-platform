@@ -1,59 +1,180 @@
 import Link from "next/link";
+import { Camera } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-[radial-gradient(900px_600px_at_20%_20%,rgba(255,255,255,.08),rgba(255,255,255,0)),#0b1016] px-5 py-14 text-white">
-      <div className="mx-auto grid max-w-[1120px] gap-8 md:grid-cols-[1fr_1.3fr]">
-        <div>
-          <div className="mb-3 text-4xl font-black tracking-[-0.06em]">
-            FLEX
-          </div>
+    <footer className="mt-24 border-t border-white/10 bg-[#151515] text-white">
+      <div className="mx-auto max-w-7xl px-6 py-16">
 
-          <p className="max-w-sm text-white/55">
-            Premium minimalist performance nutrition. Built for training days
-            and family pantries.
-          </p>
-        </div>
+        <div className="grid gap-12 md:grid-cols-[2fr_1fr_1fr_1fr]">
 
-        <div className="grid gap-8 md:grid-cols-3">
-          <div>
-            <div className="mb-3 text-xs font-black uppercase tracking-[0.14em] text-white/70">
-              Company
-            </div>
-            <div className="grid gap-2 text-white/75">
-              <Link href="/#story">Our story</Link>
-              <Link href="/#contact">Contact</Link>
-              <Link href="/#blog">Blog</Link>
-            </div>
-          </div>
+          {/* Brand */}
 
           <div>
-            <div className="mb-3 text-xs font-black uppercase tracking-[0.14em] text-white/70">
-              Support
+
+            <h2 className="text-4xl font-black tracking-tight">
+              FLEX
+            </h2>
+
+            <p className="mt-5 max-w-sm text-base leading-7 text-white/70">
+              Premium Natural Peanut Butter made from 100% roasted peanuts.
+              Built for Better Days.
+            </p>
+
+            <div className="mt-8 flex items-center gap-4">
+
+              <a
+                href="https://instagram.com/eatflex.uk"
+                target="_blank"
+                rel="noreferrer"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 transition hover:border-[#0B864E] hover:bg-[#0B864E]"
+              >
+                <Camera size={18} />
+              </a>
+
+              <a
+                href="https://www.amazon.co.uk/dp/B0GZW149KV"
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm font-semibold text-white/80 transition hover:text-white"
+              >
+                Buy on Amazon
+              </a>
+
             </div>
-            <div className="grid gap-2 text-white/75">
-              <Link href="/#faq">FAQ</Link>
-              <Link href="/shop">Where to buy</Link>
-              <Link href="/cart">Cart</Link>
-            </div>
+
           </div>
 
+          {/* Shop */}
+
           <div>
-            <div className="mb-3 text-xs font-black uppercase tracking-[0.14em] text-white/70">
-              Social
-            </div>
-            <div className="grid gap-2 text-white/75">
-              <Link href="https://instagram.com/eatflex.uk" target="_blank">
-                Instagram
+
+            <h3 className="mb-5 text-sm font-black uppercase tracking-[0.22em] text-white">
+              Shop
+            </h3>
+
+            <div className="space-y-3">
+
+              <Link
+                href="/shop"
+                className="block text-white/65 transition hover:text-[#0B864E]"
+              >
+                Shop
               </Link>
-              <Link href="/shop">Shop FLEX</Link>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div className="mx-auto mt-8 max-w-[1120px] border-t border-white/10 pt-5 text-sm text-white/50">
-        © 2026 FLEX. All rights reserved.
+              <Link
+                href="/shop"
+                className="block text-white/65 transition hover:text-[#0B864E]"
+              >
+                Bundles
+              </Link>
+
+              <Link
+                href="/#recipes"
+                className="block text-white/65 transition hover:text-[#0B864E]"
+              >
+                Recipes
+              </Link>
+
+              <Link
+                href="/#blog"
+                className="block text-white/65 transition hover:text-[#0B864E]"
+              >
+                Blog
+              </Link>
+
+            </div>
+
+          </div>
+
+          {/* Company */}
+
+          <div>
+
+            <h3 className="mb-5 text-sm font-black uppercase tracking-[0.22em] text-white">
+              Company
+            </h3>
+
+            <div className="space-y-3">
+
+              <Link
+                href="/#story"
+                className="block text-white/65 transition hover:text-[#0B864E]"
+              >
+                About FLEX
+              </Link>
+
+              <Link
+                href="/#contact"
+                className="block text-white/65 transition hover:text-[#0B864E]"
+              >
+                Contact
+              </Link>
+
+              <Link
+                href="/#faq"
+                className="block text-white/65 transition hover:text-[#0B864E]"
+              >
+                FAQ
+              </Link>
+
+            </div>
+
+          </div>
+
+          {/* Legal */}
+
+          <div>
+
+            <h3 className="mb-5 text-sm font-black uppercase tracking-[0.22em] text-white">
+              Legal
+            </h3>
+
+            <div className="space-y-3">
+
+              <Link
+                href="#"
+                className="block text-white/65 transition hover:text-[#0B864E]"
+              >
+                Privacy Policy
+              </Link>
+
+              <Link
+                href="#"
+                className="block text-white/65 transition hover:text-[#0B864E]"
+              >
+                Terms & Conditions
+              </Link>
+
+              <Link
+                href="#"
+                className="block text-white/65 transition hover:text-[#0B864E]"
+              >
+                Cookies
+              </Link>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div className="mt-14 border-t border-white/10 pt-8">
+
+          <div className="flex flex-col gap-4 text-sm text-white/50 md:flex-row md:items-center md:justify-between">
+
+            <p>
+              © {new Date().getFullYear()} FLEX. All rights reserved.
+            </p>
+
+            <p>
+              Made with ❤️ in the UK.
+            </p>
+
+          </div>
+
+        </div>
+
       </div>
     </footer>
   );

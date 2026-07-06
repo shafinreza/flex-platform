@@ -25,40 +25,38 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const items = body.items as {
-      id: string;
-      quantity: number;
-    }[];
+    const items = body.items as { id: string; quantity: number }[];
 
     if (!items || items.length === 0) {
       return NextResponse.json({ error: "No items in cart" }, { status: 400 });
     }
 
-    const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map(
-      (item) => {
-        const product = catalog.find((catalogItem) => catalogItem.id === item.id);
+    const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map((item) => {
+      const product = catalog.find((catalogItem) => catalogItem.id === item.id);
 
-        if (!product) {
-          throw new Error(`Invalid product: ${item.id}`);
-        }
-
-        return {
-          quantity: item.quantity,
-          price_data: {
-            currency: "gbp",
-            unit_amount: Math.round(product.price * 100),
-            product_data: {
-              name: product.name,
-              images: [`${process.env.NEXT_PUBLIC_SITE_URL}${product.image}`],
-            },
-          },
-        };
+      if (!product) {
+        throw new Error(`Invalid product: ${item.id}`);
       }
-    );
+
+      return {
+        quantity: item.quantity,
+        price_data: {
+          currency: "gbp",
+          unit_amount: Math.round(product.price * 100),
+          product_data: {
+            name: product.name,
+            images: [`${process.env.NEXT_PUBLIC_SITE_URL}${product.image}`],
+          },
+        },
+      };
+    });
 
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       line_items,
+      metadata: {
+        items: JSON.stringify(items),
+      },
       shipping_address_collection: {
         allowed_countries: ["GB"],
       },
@@ -78,14 +76,13 @@ export async function POST(req: Request) {
           },
         },
       ],
-      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/success`,
+      success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/checkout/cancel`,
     });
 
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error("Checkout error:", error);
-
     return NextResponse.json({ error: "Checkout failed" }, { status: 500 });
   }
 }

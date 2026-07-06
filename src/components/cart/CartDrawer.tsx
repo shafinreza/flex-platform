@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ShoppingBag, Trash2 } from "lucide-react";
+import { ShoppingBag, Trash2, Truck } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -13,26 +13,24 @@ import {
 import FlexButton from "@/components/ui/FlexButton";
 import { useCart } from "@/components/cart/CartProvider";
 
-export default function CartDrawer() {
-  const {
-    items,
-    detailedItems,
-    removeItem,
-    updateQuantity,
-    subtotal,
-    checkout,
-  } = useCart();
+const FREE_SHIPPING_THRESHOLD = 25;
 
-  const delivery = subtotal > 0 ? 2.99 : 0;
+export default function CartDrawer() {
+  const { items, detailedItems, removeItem, updateQuantity, subtotal, checkout } =
+    useCart();
+
+  const delivery = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : 2.99;
   const total = subtotal + delivery;
   const cartCount = items.reduce((total, item) => total + item.quantity, 0);
+  const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
+  const progress = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
 
   return (
     <Sheet>
       <SheetTrigger asChild>
         <button
           aria-label="Open cart"
-          className="relative grid h-11 w-11 place-items-center rounded-[10px] border border-[rgba(15,23,32,.12)] bg-white transition hover:bg-[#f4f6f3]"
+          className="relative grid h-11 w-11 place-items-center rounded-[10px] border border-black/10 bg-white transition hover:bg-[#f4f6f3]"
         >
           <ShoppingBag size={18} />
 
@@ -44,10 +42,10 @@ export default function CartDrawer() {
         </button>
       </SheetTrigger>
 
-      <SheetContent className="flex w-full flex-col border-l border-[rgba(15,23,32,.12)] bg-[#f4f6f3] p-0 sm:max-w-md">
-        <SheetHeader className="border-b border-[rgba(15,23,32,.10)] bg-white px-6 py-5 text-left">
+      <SheetContent className="flex w-full flex-col border-l border-black/10 bg-[#f4f6f3] p-0 sm:max-w-md">
+        <SheetHeader className="border-b border-black/10 bg-white px-6 py-5 text-left">
           <SheetTitle className="text-2xl font-black tracking-[-0.03em] text-[#0f1720]">
-            Your Cart
+            Your Cart {cartCount > 0 && `(${cartCount})`}
           </SheetTitle>
         </SheetHeader>
 
@@ -60,7 +58,7 @@ export default function CartDrawer() {
             <h3 className="text-2xl font-black">Your cart is empty</h3>
 
             <p className="mt-3 max-w-xs text-sm text-[#5c6773]">
-              Add your first jar of FLEX and you’re ready to fuel your limits.
+              Nothing here yet. Let’s fuel your next workout.
             </p>
 
             <Link href="/shop" className="mt-7">
@@ -70,11 +68,27 @@ export default function CartDrawer() {
         ) : (
           <>
             <div className="flex-1 overflow-y-auto px-5 py-5">
+              <div className="mb-5 rounded-[18px] border border-black/10 bg-white p-4">
+                <div className="mb-2 flex items-center gap-2 text-sm font-black">
+                  <Truck size={16} className="text-[#6f855f]" />
+                  {remainingForFreeShipping > 0
+                    ? `£${remainingForFreeShipping.toFixed(2)} away from free UK delivery`
+                    : "You unlocked free UK delivery"}
+                </div>
+
+                <div className="h-2 overflow-hidden rounded-full bg-[#eef1ec]">
+                  <div
+                    className="h-full rounded-full bg-[#6f855f]"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </div>
+
               <div className="space-y-4">
                 {detailedItems.map((item) => (
                   <div
                     key={item.id}
-                    className="rounded-[18px] border border-[rgba(15,23,32,.10)] bg-white p-4"
+                    className="rounded-[18px] border border-black/10 bg-white p-4"
                   >
                     <div className="flex gap-4">
                       <div className="grid h-24 w-24 shrink-0 place-items-center rounded-2xl bg-[#f7f9f6] p-2">
@@ -97,11 +111,9 @@ export default function CartDrawer() {
                         </p>
 
                         <div className="mt-4 flex items-center justify-between gap-3">
-                          <div className="flex items-center rounded-xl border border-[rgba(15,23,32,.14)]">
+                          <div className="flex items-center rounded-xl border border-black/15">
                             <button
-                              onClick={() =>
-                                updateQuantity(item.id, item.quantity - 1)
-                              }
+                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
                               className="grid h-9 w-9 place-items-center text-lg font-bold"
                               aria-label="Decrease quantity"
                             >
@@ -113,9 +125,7 @@ export default function CartDrawer() {
                             </span>
 
                             <button
-                              onClick={() =>
-                                updateQuantity(item.id, item.quantity + 1)
-                              }
+                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
                               className="grid h-9 w-9 place-items-center text-lg font-bold"
                               aria-label="Increase quantity"
                             >
@@ -137,18 +147,15 @@ export default function CartDrawer() {
                 ))}
               </div>
 
-              <div className="mt-5 rounded-[18px] border border-[rgba(15,23,32,.10)] bg-white p-4">
-                <p className="text-sm font-bold text-[#0f1720]">
-                  Delivery
-                </p>
-                <p className="mt-1 text-sm text-[#5c6773]">
-                  Standard UK delivery is £2.99. Orders are packed carefully to
-                  protect your jar.
-                </p>
-              </div>
+              <Link
+                href="/shop"
+                className="mt-5 block text-center text-sm font-black text-[#6f855f]"
+              >
+                Continue shopping
+              </Link>
             </div>
 
-            <div className="border-t border-[rgba(15,23,32,.10)] bg-white px-5 py-5">
+            <div className="border-t border-black/10 bg-white px-5 py-5">
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between">
                   <span className="text-[#5c6773]">Subtotal</span>
@@ -157,10 +164,12 @@ export default function CartDrawer() {
 
                 <div className="flex justify-between">
                   <span className="text-[#5c6773]">Delivery</span>
-                  <span className="font-bold">£{delivery.toFixed(2)}</span>
+                  <span className="font-bold">
+                    {delivery === 0 ? "Free" : `£${delivery.toFixed(2)}`}
+                  </span>
                 </div>
 
-                <div className="border-t border-[rgba(15,23,32,.10)] pt-4">
+                <div className="border-t border-black/10 pt-4">
                   <div className="flex justify-between text-xl font-black">
                     <span>Total</span>
                     <span>£{total.toFixed(2)}</span>
