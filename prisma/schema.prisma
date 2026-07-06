@@ -40,6 +40,16 @@ model orders {
   delivery          Decimal?      @db.Decimal(10, 2)
   total             Decimal?      @db.Decimal(10, 2)
   created_at        DateTime?     @default(now()) @db.Timestamptz(6)
+  tracking_number   String?
+  tracking_url      String?
+  shipped_at        DateTime?     @db.Timestamptz(6)
+  recipient_name    String?
+  address_line1     String?
+  address_line2     String?
+  city              String?
+  county            String?
+  postcode          String?
+  country           String?
   order_items       order_items[]
   customers         customers?    @relation(fields: [customer_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

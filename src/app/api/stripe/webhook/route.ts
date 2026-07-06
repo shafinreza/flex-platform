@@ -47,85 +47,96 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
-  if (event.type === "checkout.session.completed") {
-    const session = event.data.object as Stripe.Checkout.Session;
+  if (event.type !== "checkout.session.completed") {
+    return NextResponse.json({ received: true });
+  }
 
-    const email = session.customer_details?.email;
+  const session = event.data.object as Stripe.Checkout.Session;
+  const email = session.customer_details?.email;
 
-    if (!email) {
-      return NextResponse.json({ error: "Missing customer email" }, { status: 400 });
-    }
+  if (!email) {
+    return NextResponse.json({ error: "Missing customer email" }, { status: 400 });
+  }
 
-    const name = session.customer_details?.name || "";
-    const [firstName, ...lastNameParts] = name.split(" ");
+  const name = session.customer_details?.name || "";
+  const [firstName, ...lastNameParts] = name.split(" ");
+  const address = session.customer_details?.address;
 
-    const items = JSON.parse(session.metadata?.items || "[]") as {
-      id: string;
-      quantity: number;
-    }[];
+  const items = JSON.parse(session.metadata?.items || "[]") as {
+    id: string;
+    quantity: number;
+  }[];
 
-    const customer = await prisma.customers.upsert({
-      where: { email },
-      update: {
-        first_name: firstName || null,
-        last_name: lastNameParts.join(" ") || null,
-      },
-      create: {
-        email,
-        first_name: firstName || null,
-        last_name: lastNameParts.join(" ") || null,
+  const customer = await prisma.customers.upsert({
+    where: { email },
+    update: {
+      first_name: firstName || null,
+      last_name: lastNameParts.join(" ") || null,
+      phone: session.customer_details?.phone || null,
+    },
+    create: {
+      email,
+      first_name: firstName || null,
+      last_name: lastNameParts.join(" ") || null,
+      phone: session.customer_details?.phone || null,
+    },
+  });
+
+  const existingOrder = await prisma.orders.findFirst({
+    where: { stripe_session: session.id },
+  });
+
+  if (!existingOrder) {
+    const order = await prisma.orders.create({
+      data: {
+        customer_id: customer.id,
+        stripe_session: session.id,
+        payment_status: session.payment_status,
+        fulfilment_status: "Ready to Pack",
+        subtotal: (session.amount_subtotal || 0) / 100,
+        delivery: (session.shipping_cost?.amount_total || 0) / 100,
+        total: (session.amount_total || 0) / 100,
+        recipient_name: name || null,
+        address_line1: address?.line1 || null,
+        address_line2: address?.line2 || null,
+        city: address?.city || null,
+        county: address?.state || null,
+        postcode: address?.postal_code || null,
+        country: address?.country || null,
       },
     });
 
-    const existingOrder = await prisma.orders.findFirst({
-      where: { stripe_session: session.id },
-    });
+    for (const item of items) {
+      const productData = catalog.find((product) => product.id === item.id);
+      if (!productData) continue;
 
-    if (!existingOrder) {
-      const order = await prisma.orders.create({
-        data: {
-          customer_id: customer.id,
-          stripe_session: session.id,
-          payment_status: session.payment_status,
-          fulfilment_status: "Ready to Pack",
-          subtotal: (session.amount_subtotal || 0) / 100,
-          delivery: (session.shipping_cost?.amount_total || 0) / 100,
-          total: (session.amount_total || 0) / 100,
+      const product = await prisma.products.upsert({
+        where: { slug: productData.id },
+        update: {
+          name: productData.name,
+          description: productData.description,
+          price: productData.price,
+          image: productData.image,
+          active: true,
+        },
+        create: {
+          slug: productData.id,
+          name: productData.name,
+          description: productData.description,
+          price: productData.price,
+          image: productData.image,
+          active: true,
         },
       });
 
-      for (const item of items) {
-        const productData = catalog.find((product) => product.id === item.id);
-        if (!productData) continue;
-
-        const product = await prisma.products.upsert({
-          where: { slug: productData.id },
-          update: {
-            name: productData.name,
-            description: productData.description,
-            price: productData.price,
-            image: productData.image,
-            active: true,
-          },
-          create: {
-            slug: productData.id,
-            name: productData.name,
-            description: productData.description,
-            price: productData.price,
-            image: productData.image,
-            active: true,
-          },
-        });
-
-        await prisma.order_items.create({
-          data: {
-            order_id: order.id,
-            product_id: product.id,
-            quantity: item.quantity,
-            price: productData.price,
-          },
-        });
-      }
+      await prisma.order_items.create({
+        data: {
+          order_id: order.id,
+          product_id: product.id,
+          quantity: item.quantity,
+          price: productData.price,
+        },
+      });
     }
   }
 
