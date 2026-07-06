@@ -1,6 +1,11 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
 import FlexButton from "@/components/ui/FlexButton";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { useCart } from "@/components/cart/CartProvider";
 
 type ProductCardProps = {
   badge?: string;
@@ -9,6 +14,7 @@ type ProductCardProps = {
   price: string;
   savings?: string;
   variant?: "single" | "bundle";
+  image?: string;
 };
 
 export default function ProductCard({
@@ -18,29 +24,42 @@ export default function ProductCard({
   price,
   savings,
   variant = "single",
+  image = "/assets/products/natural-smooth-510g.png",
 }: ProductCardProps) {
+  const { addItem } = useCart();
   const isBundle = variant === "bundle";
 
+  const cartItem = isBundle
+    ? {
+        id: "natural-smooth-510g-pack-6",
+        name: "Pack of 6 - FLEX Natural Smooth 510g",
+        price: 24.99,
+        image,
+      }
+    : {
+        id: "natural-smooth-510g",
+        name: "FLEX Natural Smooth 510g",
+        price: 5.49,
+        image,
+      };
+
   return (
-    <Card
-      className={`group overflow-hidden rounded-[36px] border-2 border-[#4C260F] transition duration-300 hover:-translate-y-1 ${
-        isBundle ? "bg-[#F5E7C8]" : "bg-white"
-      } shadow-[10px_10px_0_#4C260F] hover:shadow-[6px_6px_0_#4C260F]`}
-    >
-      <CardContent className="grid gap-6 p-6 md:grid-cols-[1fr_1.2fr] md:p-8">
-        <div className="flex min-h-[220px] items-center justify-center rounded-[28px] bg-[#EFDFC7] p-6">
-          <div className="text-center">
-            <div className="text-7xl">🥜</div>
-            <p className="mt-3 text-sm font-black uppercase tracking-wide text-[#4C260F]/70">
-              Product Image
-            </p>
-          </div>
+    <Card className="overflow-hidden rounded-[24px] border border-[#4C260F]/15 bg-white shadow-sm">
+      <CardContent className="grid gap-8 p-6 md:grid-cols-[0.9fr_1.1fr] md:p-8">
+        <div className="flex min-h-[260px] items-center justify-center rounded-[20px] bg-[#F7F3EA] p-6">
+          <Image
+            src={image}
+            alt={title}
+            width={260}
+            height={260}
+            className="max-h-[260px] w-auto object-contain"
+          />
         </div>
 
         <div className="flex flex-col justify-center">
           {badge && (
             <Badge
-              className={`mb-4 w-fit rounded-full px-4 py-1 text-xs font-black uppercase ${
+              className={`mb-4 w-fit rounded-full px-4 py-1 text-xs font-bold uppercase ${
                 isBundle ? "bg-[#EF6838]" : "bg-[#0B864E]"
               } text-white`}
             >
@@ -48,31 +67,32 @@ export default function ProductCard({
             </Badge>
           )}
 
-          <h3 className="text-3xl font-black leading-tight text-[#4C260F] md:text-4xl">
+          <h3 className="text-3xl font-black leading-tight text-[#4C260F]">
             {title}
           </h3>
 
-          <p className="mt-3 font-semibold text-[#4C260F]/75">{subtitle}</p>
+          <p className="mt-3 font-medium text-[#4C260F]/70">{subtitle}</p>
 
           {savings && (
-            <p className="mt-4 w-fit rounded-full bg-white px-4 py-2 text-sm font-black text-[#EF6838]">
+            <p className="mt-4 w-fit rounded-full bg-[#EFDFC7] px-4 py-2 text-sm font-bold text-[#EF6838]">
               {savings}
             </p>
           )}
 
-          <div className="mt-5 text-5xl font-black text-[#0B864E]">
+          <div className="mt-5 text-4xl font-black text-[#0B864E]">
             {price}
           </div>
 
-          <div className="mt-5 flex flex-wrap gap-2 text-xs font-black uppercase tracking-wide text-[#4C260F]/70">
-            <span>100% Peanuts</span>
-            <span>•</span>
-            <span>No Palm Oil</span>
-            <span>•</span>
-            <span>No Added Sugar</span>
-          </div>
+          <FlexButton className="mt-6 w-full" onClick={() => addItem(cartItem)}>
+            Add to Cart
+          </FlexButton>
 
-          <FlexButton className="mt-6 w-full">Add to Cart</FlexButton>
+          <Link
+            href="/products/natural-smooth-510g"
+            className="mt-4 text-center text-sm font-bold text-[#0B864E] underline-offset-4 hover:underline"
+          >
+            View product details
+          </Link>
         </div>
       </CardContent>
     </Card>
