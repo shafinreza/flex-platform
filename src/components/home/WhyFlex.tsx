@@ -1,63 +1,73 @@
-import FlexButton from "@/components/ui/FlexButton";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function WhyFlex() {
   return (
-    <section id="story" className="bg-[#eef1ec] px-5 py-[72px]">
-      <div className="mx-auto grid max-w-[1120px] gap-6 md:grid-cols-[1.15fr_.85fr]">
-        <div>
-          <h2 className="mb-3 text-[62px] font-black leading-[.9] tracking-[-0.04em]">
-            OUR STORY
+    <section id="story" className="bg-[#f4f6f3] px-5 py-20 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_.8fr]">
+        <div className="rounded-[3rem] bg-white p-8 shadow-sm md:p-12">
+          <p className="text-sm font-black uppercase tracking-[0.22em] text-[#6f855f]">
+            Why FLEX
+          </p>
+
+          <h2 className="mt-4 max-w-3xl text-6xl font-black leading-[0.9] tracking-[-0.07em] text-[#0f1720] md:text-8xl">
+            CLEAN FUEL.
+            <br />
+            REAL FUN.
           </h2>
 
-          <p className="mb-4 max-w-[70ch] text-[#0f1720]/90">
-            FLEX started with a simple belief:{" "}
-            <strong>performance fuel should taste great.</strong> We cut the
-            noise and focused on what matters — quality ingredients and clean formulation.
+          <p className="mt-8 max-w-2xl text-lg leading-8 text-slate-600">
+            FLEX is built for people who move, train, work, snack, cook and
+            want food that feels good without overcomplicating nutrition.
           </p>
 
-          <p className="mb-6 max-w-[70ch] text-[#0f1720]/90">
-            FLEX is a clean pantry staple built for training days and healthy kitchens.
-            No added sugar, no palm oil, no fillers — just roasted peanuts, ground smooth.
-          </p>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-[14px] border border-[rgba(15,23,32,.10)] bg-white p-5">
-              <div className="text-[42px] font-black leading-none text-[#6f855f]">
-                132g
-              </div>
-              <div className="mt-2 font-semibold text-[#5c6773]">
-                Protein per jar
-              </div>
-            </div>
-
-            <div className="rounded-[14px] border border-[rgba(15,23,32,.10)] bg-white p-5">
-              <div className="text-[42px] font-black leading-none text-[#6f855f]">
-                100%
-              </div>
-              <div className="mt-2 font-semibold text-[#5c6773]">
-                Roasted peanuts
-              </div>
-            </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            <Feature title="Simple" text="Roasted peanuts only." />
+            <Feature title="Useful" text="Breakfast, shakes, oats and snacks." />
+            <Feature title="Enjoyable" text="Smooth texture. Big peanut flavour." />
           </div>
         </div>
 
-        <div className="rounded-[18px] border border-[rgba(15,23,32,.10)] bg-white/90 p-6">
-          <div className="mb-3 inline-block rounded-full bg-[rgba(111,133,95,.14)] px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.12em]">
-            Coming soon
-          </div>
-
-          <h3 className="mb-3 text-2xl font-black">
-            More products. Same standards.
-          </h3>
-
-          <p className="mb-6 text-[#5c6773]">
-            As we expand the range, every product stays clean, performance-driven,
-            and built around real ingredients.
+        <div className="rounded-[3rem] bg-[#efdfc7] p-8 shadow-sm md:p-10">
+          <p className="text-sm font-black uppercase tracking-[0.22em] text-[#4c260f]">
+            Your FLEX mission
           </p>
 
-          <FlexButton variant="outline">Read updates</FlexButton>
+          <div className="mt-8 space-y-4">
+            <Mission text="Spread it on toast" />
+            <Mission text="Blend it into a protein shake" />
+            <Mission text="Swirl it into oats" />
+            <Mission text="Eat one spoon straight from the jar" />
+          </div>
+
+          <Link
+            href="/shop"
+            className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#0f1720] px-6 py-4 text-sm font-black uppercase tracking-[0.14em] text-white"
+          >
+            Start flexing
+            <ArrowRight size={16} />
+          </Link>
         </div>
       </div>
     </section>
+  );
+}
+
+function Feature({ title, text }: { title: string; text: string }) {
+  return (
+    <div className="rounded-3xl bg-[#f4f6f3] p-5">
+      <p className="text-xl font-black tracking-[-0.04em] text-[#0f1720]">
+        {title}
+      </p>
+      <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+    </div>
+  );
+}
+
+function Mission({ text }: { text: string }) {
+  return (
+    <div className="rounded-3xl bg-white/70 px-5 py-4 text-lg font-black tracking-[-0.03em] text-[#0f1720]">
+      ✓ {text}
+    </div>
   );
 }

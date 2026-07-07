@@ -1,23 +1,20 @@
-export default function TrustBar() {
-  const features = [
-    ["100% PEANUTS", "Roasted peanuts only. Nothing else."],
-    ["SUSTAINED ENERGY", "Clean fats + protein for long sessions."],
-    ["WHERE TO BUY", "Available direct from FLEX."],
-    ["NO ARTIFICIALS", "No palm oil. No added sugar. No fillers."],
-  ];
+const features = [
+  ["100% ROASTED PEANUTS", "No fillers. No fake stuff."],
+  ["NO PALM OIL", "Just proper peanut butter."],
+  ["NO ADDED SUGAR", "Naturally rich and smooth."],
+  ["MADE FOR ACTIVE DAYS", "Breakfast, snacks, shakes and spoons."],
+];
 
+export default function TrustBar() {
   return (
-    <section id="where-to-buy" className="border-y border-[rgba(15,23,32,.12)] bg-white px-5">
-      <div className="mx-auto grid max-w-[1120px] gap-4 py-4 md:grid-cols-4">
+    <section className="border-y border-black/10 bg-[#0f1720] px-5 text-white lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-3 py-5 md:grid-cols-4">
         {features.map(([title, text]) => (
-          <div
-            key={title}
-            className="rounded-xl border border-[rgba(15,23,32,.10)] bg-white p-4"
-          >
-            <div className="mb-1 text-xs font-extrabold uppercase tracking-[0.14em]">
+          <div key={title} className="rounded-3xl bg-white/5 p-5">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#efb236]">
               {title}
-            </div>
-            <div className="text-[13px] text-[#5c6773]">{text}</div>
+            </p>
+            <p className="mt-2 text-sm leading-6 text-white/70">{text}</p>
           </div>
         ))}
       </div>
