@@ -39,6 +39,11 @@ model orders {
   subtotal          Decimal?      @db.Decimal(10, 2)
   delivery          Decimal?      @db.Decimal(10, 2)
   total             Decimal?      @db.Decimal(10, 2)
+  discount_code     String?
+  discount_amount   Decimal?      @db.Decimal(10, 2)
+  stripe_payment_intent String?
+  refunded_at       DateTime?     @db.Timestamptz(6)
+  cancelled_at      DateTime?     @db.Timestamptz(6)
   created_at        DateTime?     @default(now()) @db.Timestamptz(6)
   tracking_number   String?
   tracking_url      String?
