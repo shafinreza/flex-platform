@@ -26,17 +26,31 @@ export async function POST(_req: Request, { params }: RouteProps) {
       return NextResponse.json({ ok: false, error: "Order already refunded" }, { status: 400 });
     }
 
-    if (!order.stripe_payment_intent) {
-      return NextResponse.json({ ok: false, error: "Missing Stripe payment intent" }, { status: 400 });
+    let paymentIntent = order.stripe_payment_intent;
+
+    if (!paymentIntent && order.stripe_session) {
+      const session = await stripe.checkout.sessions.retrieve(order.stripe_session);
+
+      if (typeof session.payment_intent === "string") {
+        paymentIntent = session.payment_intent;
+      }
+    }
+
+    if (!paymentIntent) {
+      return NextResponse.json(
+        { ok: false, error: "Missing Stripe payment intent" },
+        { status: 400 }
+      );
     }
 
     await stripe.refunds.create({
-      payment_intent: order.stripe_payment_intent,
+      payment_intent: paymentIntent,
     });
 
     await prisma.orders.update({
       where: { id },
       data: {
+        stripe_payment_intent: paymentIntent,
         payment_status: "refunded",
         fulfilment_status: "Refunded",
         refunded_at: new Date(),
@@ -47,6 +61,10 @@ export async function POST(_req: Request, { params }: RouteProps) {
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("Refund order error:", error);
-    return NextResponse.json({ ok: false, error: "Failed to refund order" }, { status: 500 });
+
+    return NextResponse.json(
+      { ok: false, error: "Failed to refund order" },
+      { status: 500 }
+    );
   }
 }
