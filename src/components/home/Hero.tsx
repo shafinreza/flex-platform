@@ -10,7 +10,7 @@ export default function Hero() {
             High performance nutrition
           </p>
 
-          <h1 className="font-['Bebas_Neue',Arial,sans-serif] text-[82px] leading-[0.86] tracking-[0.02em] text-white drop-shadow-xl md:text-[110px]">
+          <h1 className="font-['Bebas_Neue',Arial,sans-serif] text-[68px] leading-[0.9] tracking-[0.02em] text-white drop-shadow-xl md:text-[88px] lg:text-[96px]">
             FLEX YOUR
             <br />
             LIMITS
@@ -43,14 +43,14 @@ export default function Hero() {
         </div>
 
         <div className="flex justify-center">
-          <div className="grid aspect-square w-full max-w-[360px] place-items-center rounded-[18px] bg-white/10 p-6 shadow-[0_24px_70px_rgba(0,0,0,.10)]">
+          <div className="grid aspect-square w-full max-w-[420px] place-items-center rounded-[18px] bg-white/10 p-4 shadow-[0_24px_70px_rgba(0,0,0,.10)]">
             <Image
               src="/assets/products/flex-jar.png"
               alt="FLEX Natural Peanut Butter"
-              width={320}
-              height={320}
+              width={380}
+              height={380}
               priority
-              className="max-h-[320px] w-auto object-contain drop-shadow-[0_18px_30px_rgba(0,0,0,.18)]"
+              className="max-h-[380px] w-auto object-contain drop-shadow-[0_20px_32px_rgba(0,0,0,.20)]"
             />
           </div>
         </div>
