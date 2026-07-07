@@ -17,7 +17,7 @@ export default function Home() {
             Shop FLEX
           </p>
           <div className="mt-3 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-            <h2 className="text-5xl font-black tracking-[-0.05em] text-[#0f1720] md:text-6xl">
+            <h2 className="text-4xl font-black tracking-[-0.05em] text-[#0f1720] md:text-5xl">
               Choose your stash
             </h2>
             <p className="max-w-md leading-7 text-[#4C260F]/70">

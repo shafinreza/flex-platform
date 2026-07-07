@@ -12,9 +12,9 @@ export default function Navbar() {
           <Image
             src="/assets/brand/flex-logo.png"
             alt="FLEX"
-            width={64}
-            height={64}
-            className="h-14 w-14 rounded-2xl object-contain"
+            width={78}
+            height={78}
+            className="h-16 w-16 rounded-2xl object-contain"
             priority
           />
         </Link>
@@ -34,11 +34,10 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <Link
             href="/shop"
-            className="hidden rounded-full bg-[#0B864E] px-8 py-4 text-sm font-black uppercase tracking-[0.14em] text-white shadow-sm transition hover:bg-[#096b3f] md:block"
+            className="hidden rounded-full bg-[#0B864E] px-8 py-4 text-sm font-black uppercase tracking-[0.14em] text-white transition hover:bg-[#096b3f] md:block"
           >
             Shop Now →
           </Link>
-
           <CartDrawer />
         </div>
       </div>
