@@ -1,5 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import AdminHeader from "@/components/admin/AdminHeader";
+import AdminSidebar from "@/components/admin/AdminSidebar";
 
 export default async function AdminLayout({
   children,
@@ -13,5 +15,16 @@ export default async function AdminLayout({
     redirect("/login");
   }
 
-  return children;
+  return (
+    <div className="min-h-screen bg-[#f4f6f3]">
+      <div className="flex">
+        <AdminSidebar />
+
+        <div className="min-w-0 flex-1">
+          <AdminHeader />
+          {children}
+        </div>
+      </div>
+    </div>
+  );
 }
