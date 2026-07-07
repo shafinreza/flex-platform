@@ -1,4 +1,32 @@
-export const productFamilies = [
+export type ProductVariant = {
+  id: string;
+  name: string;
+  texture: string;
+  size: string;
+  price: number;
+  image: string;
+  rating: number;
+  reviewCount: number;
+  features: string[];
+  available: boolean;
+};
+
+export type ProductFamily = {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  variants: ProductVariant[];
+};
+
+export type Bundle = {
+  id: string;
+  fullName: string;
+  price: number;
+  image: string;
+};
+
+export const productFamilies: ProductFamily[] = [
   {
     id: "natural-peanut-butter",
     name: "Natural Peanut Butter",
@@ -27,6 +55,6 @@ export const productFamilies = [
   },
 ];
 
-export const bundles = [];
+export const bundles: Bundle[] = [];
 
 export const featuredVariant = productFamilies[0].variants[0];
