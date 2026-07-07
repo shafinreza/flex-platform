@@ -23,6 +23,7 @@ export default function ProductInfo() {
 
   function addToCart() {
     for (let i = 0; i < qty; i++) addItem(featuredVariant.id);
+    window.dispatchEvent(new Event("flex:open-cart"));
   }
 
   return (
@@ -32,13 +33,13 @@ export default function ProductInfo() {
           FLEX
         </p>
 
-        <h1 className="text-5xl font-black leading-tight lg:text-6xl">
+        <h1 className="text-4xl font-black leading-tight lg:text-5xl">
           {featuredVariant.name}
         </h1>
 
         <div className="mt-3 flex items-center gap-3">
           <span className="text-yellow-500">★★★★★</span>
-          <span className="text-sm text-slate-500">4.3 (34 reviews)</span>
+          <span className="text-sm text-slate-500">4.4 Amazon rating</span>
         </div>
 
         <div className="mt-6 text-4xl font-black text-[#6f855f]">

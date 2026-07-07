@@ -3,14 +3,14 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="bg-[radial-gradient(900px_520px_at_30%_40%,rgba(255,255,255,.55),rgba(255,255,255,0)),linear-gradient(0deg,rgba(111,133,95,.16),rgba(111,133,95,.16))] px-5 py-14 lg:px-8">
+    <section className="bg-[radial-gradient(900px_520px_at_30%_40%,rgba(255,255,255,.55),rgba(255,255,255,0)),linear-gradient(0deg,rgba(111,133,95,.16),rgba(111,133,95,.16))] px-5 py-12 lg:px-8">
       <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.05fr_.95fr]">
         <div>
           <p className="mb-3 text-sm text-[#0f1720]/80">
             High performance nutrition
           </p>
 
-          <h1 className="font-display text-[68px] leading-[0.9] tracking-[0.02em] text-white drop-shadow-xl md:text-[88px] lg:text-[96px]">
+          <h1 className="font-display text-[60px] leading-[0.9] tracking-[-0.02em] text-white drop-shadow-xl md:text-[78px] lg:text-[86px]">
             FLEX YOUR
             <br />
             LIMITS
@@ -23,7 +23,7 @@ export default function Hero() {
 
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
-              href="/shop"
+              href="/#products"
               className="rounded-xl bg-[#6f855f] px-5 py-4 text-xs font-black uppercase tracking-[0.12em] text-white transition hover:bg-[#0B864E]"
             >
               Shop FLEX
@@ -43,14 +43,14 @@ export default function Hero() {
         </div>
 
         <div className="flex justify-center">
-          <div className="grid aspect-square w-full max-w-[420px] place-items-center rounded-[18px] bg-white/10 p-4 shadow-[0_24px_70px_rgba(0,0,0,.10)]">
+          <div className="grid aspect-square w-full max-w-[430px] place-items-center rounded-[18px] bg-white/10 p-4 shadow-[0_24px_70px_rgba(0,0,0,.10)]">
             <Image
               src="/assets/products/flex-jar.png"
               alt="FLEX Natural Peanut Butter"
-              width={380}
-              height={380}
+              width={390}
+              height={390}
               priority
-              className="max-h-[380px] w-auto object-contain drop-shadow-[0_20px_32px_rgba(0,0,0,.20)]"
+              className="max-h-[390px] w-auto object-contain drop-shadow-[0_20px_32px_rgba(0,0,0,.20)]"
             />
           </div>
         </div>

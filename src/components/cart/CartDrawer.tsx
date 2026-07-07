@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ShoppingBag, Trash2, Truck } from "lucide-react";
 import {
@@ -16,6 +17,17 @@ import { useCart } from "@/components/cart/CartProvider";
 const FREE_SHIPPING_THRESHOLD = 25;
 
 export default function CartDrawer() {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    function openCart() {
+      setOpen(true);
+    }
+
+    window.addEventListener("flex:open-cart", openCart);
+    return () => window.removeEventListener("flex:open-cart", openCart);
+  }, []);
+
   const { items, detailedItems, removeItem, updateQuantity, subtotal, checkout } =
     useCart();
 
@@ -26,7 +38,7 @@ export default function CartDrawer() {
   const progress = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <button
           aria-label="Open cart"

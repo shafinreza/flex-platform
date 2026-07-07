@@ -4,7 +4,7 @@ export const productFamilies = [
     name: "Natural Peanut Butter",
     description:
       "100% roasted peanuts. High protein. No added sugar. No palm oil.",
-    image: "/assets/products/natural-smooth-510g.png",
+    image: "/assets/products/flex-jar.png",
     variants: [
       {
         id: "natural-smooth-510g",
@@ -12,8 +12,8 @@ export const productFamilies = [
         texture: "Smooth",
         size: "510g",
         price: 5.49,
-        image: "/assets/products/natural-smooth-510g.png",
-        rating: 4.3,
+        image: "/assets/products/flex-jar.png",
+        rating: 4.4,
         reviewCount: 34,
         features: [
           "100% Roasted Peanuts",
@@ -27,18 +27,6 @@ export const productFamilies = [
   },
 ];
 
-export const bundles = [
-  {
-    id: "natural-smooth-510g-pack-6",
-    name: "Pack of 6",
-    fullName: "6 × FLEX Natural Smooth 510g",
-    quantity: 6,
-    price: 24.99,
-    savings: "Save £7.95",
-    image: "/assets/products/natural-smooth-510g.png",
-    variantId: "natural-smooth-510g",
-    available: true,
-  },
-];
+export const bundles = [];
 
 export const featuredVariant = productFamilies[0].variants[0];
