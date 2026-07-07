@@ -3,67 +3,66 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="bg-[#fff7e8] px-5 py-16 lg:px-8">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
+    <section className="relative overflow-hidden bg-[#EFDFC7]">
+      <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 py-16 lg:grid-cols-2 lg:py-20">
         <div>
-          <p className="mb-5 inline-flex rounded-full bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#6f855f] shadow-sm">
-            100% roasted peanuts
-          </p>
+          <div className="mb-6 inline-flex rounded-full bg-[#EFB236] px-5 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#4C260F]">
+            FLEX MADE FUN
+          </div>
 
-          <h1 className="max-w-3xl text-6xl font-black leading-[0.9] tracking-[-0.06em] text-[#0f1720] md:text-8xl">
-            Fuel what moves you.
+          <h1 className="text-6xl font-black leading-[0.9] tracking-[-0.06em] text-[#4C260F] md:text-8xl">
+            Fuel what
+            <br />
+            moves you.
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-700">
-            Smooth natural peanut butter made with roasted peanuts. No palm oil.
-            No added sugar. No nonsense.
+          <p className="mt-7 max-w-xl text-xl leading-8 text-[#4C260F]/80">
+            Natural peanut butter made from roasted peanuts. No palm oil. No
+            added sugar. Just proper peanut butter.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-wrap gap-4">
             <Link
               href="/shop"
-              className="rounded-full bg-[#6f855f] px-8 py-4 text-sm font-black uppercase tracking-[0.14em] text-white"
+              className="rounded-full bg-[#0B864E] px-8 py-4 font-black text-white transition hover:bg-[#096f42]"
             >
-              Shop now
+              Shop Now
             </Link>
 
             <Link
               href="/products/natural-smooth-510g"
-              className="rounded-full border border-black/10 bg-white px-8 py-4 text-sm font-black uppercase tracking-[0.14em] text-[#0f1720]"
+              className="rounded-full border-2 border-[#4C260F] px-8 py-4 font-black text-[#4C260F]"
             >
-              View product
+              Learn More
             </Link>
           </div>
 
-          <div className="mt-10 grid max-w-xl grid-cols-3 gap-3">
-            <Stat value="100%" label="Peanuts" />
-            <Stat value="0" label="Palm oil" />
-            <Stat value="4.3★" label="Amazon rating" />
+          <div className="mt-12 flex flex-wrap gap-3">
+            <span className="rounded-full bg-white px-4 py-2 text-sm font-bold text-[#4C260F]">
+              100% Roasted Peanuts
+            </span>
+            <span className="rounded-full bg-white px-4 py-2 text-sm font-bold text-[#4C260F]">
+              No Palm Oil
+            </span>
+            <span className="rounded-full bg-white px-4 py-2 text-sm font-bold text-[#4C260F]">
+              No Added Sugar
+            </span>
           </div>
         </div>
 
-        <div className="rounded-[2rem] bg-white p-8 shadow-sm">
+        <div className="relative flex justify-center">
+          <div className="absolute h-[390px] w-[390px] rounded-full bg-[#EFB236]/45 blur-3xl" />
+
           <Image
-            src="/assets/products/natural-smooth-510g.png"
-            alt="FLEX Natural Smooth Peanut Butter"
-            width={720}
-            height={720}
+            src="/assets/products/flex-jar.png"
+            alt="FLEX Peanut Butter"
+            width={390}
+            height={390}
             priority
-            className="mx-auto max-h-[560px] w-full object-contain"
+            className="relative z-10 max-h-[430px] w-auto drop-shadow-[0_30px_40px_rgba(76,38,15,0.28)]"
           />
         </div>
       </div>
     </section>
-  );
-}
-
-function Stat({ value, label }: { value: string; label: string }) {
-  return (
-    <div className="rounded-2xl bg-white p-4 shadow-sm">
-      <p className="text-2xl font-black text-[#0f1720]">{value}</p>
-      <p className="mt-1 text-xs font-black uppercase tracking-[0.14em] text-slate-500">
-        {label}
-      </p>
-    </div>
   );
 }
