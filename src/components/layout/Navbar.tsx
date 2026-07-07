@@ -6,33 +6,43 @@ import CartDrawer from "@/components/cart/CartDrawer";
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-[#4C260F]/10 bg-[#FFF7E8]/95 backdrop-blur">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8">
+    <header className="sticky top-0 z-50 border-b border-black/10 bg-white/90 backdrop-blur">
+      <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 lg:px-8">
         <Link href="/" aria-label="FLEX home">
           <Image
             src="/assets/brand/flex-logo.png"
             alt="FLEX"
-            width={86}
-            height={86}
+            width={150}
+            height={60}
             priority
-            className="h-[68px] w-[68px] object-contain"
+            className="h-10 w-auto object-contain"
           />
         </Link>
 
-        <nav className="hidden items-center gap-9 md:flex">
-          <Link href="/shop" className="nav-link">Shop</Link>
-          <Link href="/#story" className="nav-link">Why FLEX</Link>
-          <Link href="/#recipes" className="nav-link">Recipes</Link>
-          <Link href="/#reviews" className="nav-link">Reviews</Link>
-          <Link href="/#faq" className="nav-link">FAQ</Link>
+        <nav className="hidden items-center gap-7 md:flex">
+          {[
+            ["Products", "/#products"],
+            ["Story", "/#story"],
+            ["FAQ", "/#faq"],
+            ["Blog", "/#blog"],
+            ["Contact", "/#contact"],
+          ].map(([label, href]) => (
+            <Link
+              key={label}
+              href={href}
+              className="text-xs font-bold uppercase tracking-[0.26em] text-[#0f1720]/75 hover:text-[#0f1720]"
+            >
+              {label}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex items-center gap-3">
           <Link
             href="/shop"
-            className="hidden rounded-full bg-[#0B864E] px-7 py-3.5 text-sm font-black uppercase tracking-[0.14em] text-white transition hover:bg-[#096b3f] md:block"
+            className="hidden rounded-xl border border-black/25 bg-white px-4 py-3 text-xs font-black uppercase tracking-[0.12em] text-[#0f1720] transition hover:bg-[#0B864E] hover:text-white md:inline-flex"
           >
-            Shop Now
+            Shop now
           </Link>
           <CartDrawer />
         </div>

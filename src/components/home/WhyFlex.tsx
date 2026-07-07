@@ -1,39 +1,57 @@
 export default function WhyFlex() {
   return (
-    <section id="story" className="bg-[#f4f6f3] px-5 py-20 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <div className="rounded-[2rem] bg-white p-8 shadow-sm md:p-12">
-          <p className="text-sm font-black uppercase tracking-[0.22em] text-[#6f855f]">
-            Why FLEX
-          </p>
-
-          <h2 className="mt-4 text-5xl font-black leading-[0.95] tracking-[-0.05em] text-[#0f1720] md:text-7xl">
-            Simple ingredients.
-            <br />
-            Proper peanut butter.
+    <section id="story" className="bg-[#eef1ec] px-5 py-20 lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1.15fr_.85fr]">
+        <div>
+          <h2 className="font-['Bebas_Neue',Arial,sans-serif] text-[62px] leading-none tracking-[0.06em]">
+            OUR STORY
           </h2>
 
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-700">
-            FLEX is made for everyday food moments — toast, oats, shakes,
-            snacks, recipes and straight-from-the-jar spoonfuls.
+          <p className="mt-5 max-w-3xl text-[#0f1720]/85">
+            FLEX started with a simple belief:{" "}
+            <strong>performance fuel should taste great.</strong> We cut the
+            noise and focused on what matters — quality ingredients and clean
+            formulation.
           </p>
 
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            <Card title="No palm oil" text="Just proper roasted peanut flavour." />
-            <Card title="No added sugar" text="Naturally rich, smooth and satisfying." />
-            <Card title="Everyday fuel" text="Breakfast, snacks, smoothies and more." />
+          <p className="mt-4 max-w-3xl text-[#0f1720]/85">
+            FLEX is a clean pantry staple built for training days and healthy
+            kitchens. No added sugar, no palm oil, no fillers — just roasted
+            peanuts, ground smooth.
+          </p>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            <Stat value="132g" label="Protein per jar" />
+            <Stat value="100%" label="Roasted peanuts" />
           </div>
+        </div>
+
+        <div className="rounded-[18px] border border-black/10 bg-white/90 p-6">
+          <span className="rounded-full bg-[#6f855f]/15 px-3 py-2 text-xs font-black uppercase tracking-[0.12em]">
+            Coming soon
+          </span>
+
+          <h3 className="mt-5 text-2xl font-black">
+            More products. Same standards.
+          </h3>
+
+          <p className="mt-3 text-[#5c6773]">
+            As we expand the range, every product stays clean,
+            performance-driven, and built around real ingredients.
+          </p>
         </div>
       </div>
     </section>
   );
 }
 
-function Card({ title, text }: { title: string; text: string }) {
+function Stat({ value, label }: { value: string; label: string }) {
   return (
-    <div className="rounded-2xl bg-[#f4f6f3] p-6">
-      <h3 className="text-xl font-black text-[#0f1720]">{title}</h3>
-      <p className="mt-2 text-sm leading-6 text-slate-600">{text}</p>
+    <div className="rounded-2xl border border-black/10 bg-white p-5">
+      <p className="font-['Bebas_Neue',Arial,sans-serif] text-[42px] leading-none text-[#6f855f]">
+        {value}
+      </p>
+      <p className="mt-2 font-semibold text-[#5c6773]">{label}</p>
     </div>
   );
 }
