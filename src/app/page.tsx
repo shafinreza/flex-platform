@@ -11,15 +11,17 @@ export default function Home() {
     <main className="bg-[#FFFDF8]">
       <Hero />
 
-      <section className="border-b border-[#4C260F]/10 bg-[#FFFDF8] px-6 py-12">
+      <section className="border-y border-[#4C260F]/10 bg-[#FFFDF8] px-5 py-10 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <p className="text-sm font-black uppercase tracking-[0.22em] text-[#0B864E]">
             Shop FLEX
           </p>
+
           <div className="mt-3 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <h2 className="text-4xl font-black tracking-[-0.05em] text-[#0f1720] md:text-5xl">
               Choose your stash
             </h2>
+
             <p className="max-w-md leading-7 text-[#4C260F]/70">
               One jar or a 6-pack. Same smooth texture, same clean ingredients,
               same spoon-worthy energy.
