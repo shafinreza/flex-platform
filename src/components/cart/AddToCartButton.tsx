@@ -5,10 +5,12 @@ import { useCart } from "@/components/cart/CartProvider";
 
 export default function AddToCartButton({
   productId,
+  quantity = 1,
   children = "Add to Cart",
   className = "",
 }: {
   productId: string;
+  quantity?: number;
   children?: React.ReactNode;
   className?: string;
 }) {
@@ -16,10 +18,9 @@ export default function AddToCartButton({
   const [added, setAdded] = useState(false);
 
   function handleClick() {
-    addItem(productId);
+    addItem(productId, quantity);
     setAdded(true);
     window.dispatchEvent(new Event("flex:open-cart"));
-
     setTimeout(() => setAdded(false), 1200);
   }
 
