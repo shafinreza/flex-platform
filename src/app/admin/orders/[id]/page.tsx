@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import MarkAsShippedButton from "@/components/admin/MarkAsShippedButton";
 import RefundOrderButton from "@/components/admin/RefundOrderButton";
+import OrderNotesForm from "@/components/admin/OrderNotesForm";
 
 export const dynamic = "force-dynamic";
 
@@ -186,6 +187,14 @@ export default async function AdminOrderDetailPage({ params }: PageProps) {
                 <RefundOrderButton orderId={order.id} />
               </Panel>
             )}
+
+
+            <Panel title="Internal Notes">
+              <OrderNotesForm
+                orderId={order.id}
+                initialNotes={order.internal_notes || ""}
+              />
+            </Panel>
 
             {isRefunded && (
               <Panel title="Refunded">
