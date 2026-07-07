@@ -10,7 +10,7 @@ export default function Hero() {
             High performance nutrition
           </p>
 
-          <h1 className="font-['Bebas_Neue',Arial,sans-serif] text-[68px] leading-[0.9] tracking-[0.02em] text-white drop-shadow-xl md:text-[88px] lg:text-[96px]">
+          <h1 className="font-display text-[68px] leading-[0.9] tracking-[0.02em] text-white drop-shadow-xl md:text-[88px] lg:text-[96px]">
             FLEX YOUR
             <br />
             LIMITS

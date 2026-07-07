@@ -8,7 +8,7 @@ export default function BlogPreview() {
   return (
     <section id="blog" className="bg-[#eef1ec] px-5 py-[72px]">
       <div className="mx-auto max-w-[1120px]">
-        <h2 className="mb-3 text-[62px] font-black leading-[.9] tracking-[-0.04em]">
+        <h2 className="mb-3 font-display text-[58px] leading-[0.9] tracking-[-0.02em]">
           BLOG
         </h2>
 

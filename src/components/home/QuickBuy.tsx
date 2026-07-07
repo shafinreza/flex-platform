@@ -5,7 +5,7 @@ export default function QuickBuy() {
   return (
     <section id="products" className="bg-[#f4f6f3] px-5 py-20 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <h2 className="font-['Bebas_Neue',Arial,sans-serif] text-[62px] leading-none tracking-[0.06em]">
+        <h2 className="font-display font-display text-[58px] leading-none tracking-[-0.02em]">
           OUR PRODUCTS
         </h2>
 

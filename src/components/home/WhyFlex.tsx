@@ -3,7 +3,7 @@ export default function WhyFlex() {
     <section id="story" className="bg-[#eef1ec] px-5 py-20 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1.15fr_.85fr]">
         <div>
-          <h2 className="font-['Bebas_Neue',Arial,sans-serif] text-[62px] leading-none tracking-[0.06em]">
+          <h2 className="font-display font-display text-[58px] leading-none tracking-[-0.02em]">
             OUR STORY
           </h2>
 
@@ -48,7 +48,7 @@ export default function WhyFlex() {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div className="rounded-2xl border border-black/10 bg-white p-5">
-      <p className="font-['Bebas_Neue',Arial,sans-serif] text-[42px] leading-none text-[#6f855f]">
+      <p className="font-display text-[42px] leading-none text-[#6f855f]">
         {value}
       </p>
       <p className="mt-2 font-semibold text-[#5c6773]">{label}</p>

@@ -5,7 +5,7 @@ export default function Contact() {
     <section id="contact" className="px-5 py-[72px]">
       <div className="mx-auto grid max-w-[1120px] gap-6 md:grid-cols-2">
         <div>
-          <h2 className="mb-3 text-[62px] font-black leading-[.9] tracking-[-0.04em]">
+          <h2 className="mb-3 font-display text-[58px] leading-[0.9] tracking-[-0.02em]">
             GET IN TOUCH
           </h2>
 

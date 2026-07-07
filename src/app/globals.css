@@ -23,7 +23,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family: var(--font-body), system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   line-height: 1.55;
 }
 
@@ -35,4 +35,12 @@ img {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.font-display {
+  font-family: var(--font-display), cursive;
+}
+
+.font-body {
+  font-family: var(--font-body), sans-serif;
 }

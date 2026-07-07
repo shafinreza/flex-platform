@@ -9,7 +9,7 @@ export default function FAQ() {
   return (
     <section id="faq" className="px-5 py-[72px]">
       <div className="mx-auto max-w-[1120px]">
-        <h2 className="mb-8 text-[62px] font-black leading-[.9] tracking-[-0.04em]">
+        <h2 className="mb-8 font-display text-[58px] leading-[0.9] tracking-[-0.02em]">
           FAQ
         </h2>
 
