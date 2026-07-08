@@ -66,7 +66,7 @@ export async function POST(req: Request) {
               shipping_rate_data: {
                 type: "fixed_amount",
                 fixed_amount: {
-                  amount: 299,
+                  amount: 399,
                   currency: "gbp",
                 },
                 display_name: "Standard UK Delivery",

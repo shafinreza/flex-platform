@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { FREE_SHIPPING_THRESHOLD, featuredBundle } from "@/data/products";
+import { STANDARD_SHIPPING_PRICE } from "@/data/shipping";
 import { useCart } from "@/components/cart/CartProvider";
 
 export default function CartDrawer() {
@@ -41,7 +42,7 @@ export default function CartDrawer() {
     checkout,
   } = useCart();
 
-  const delivery = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : 2.99;
+  const delivery = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : STANDARD_SHIPPING_PRICE;
   const total = subtotal + delivery;
   const cartCount = items.reduce((total, item) => total + item.quantity, 0);
   const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
