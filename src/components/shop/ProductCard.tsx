@@ -1,84 +1,89 @@
-"use client";
-
-import Image from "next/image";
 import Link from "next/link";
-import FlexButton from "@/components/ui/FlexButton";
-import { useCart } from "@/components/cart/CartProvider";
+import AddToCartButton from "@/components/cart/AddToCartButton";
 
-type ProductCardProps = {
-  badge?: string;
-  title: string;
+type Product = {
+  id: string;
+  name: string;
   subtitle: string;
-  price: string;
-  savings?: string;
-  variant?: "single" | "bundle";
-  image?: string;
+  price: number;
+  image: string;
+  href: string;
+  badge: string;
 };
 
-export default function ProductCard({
-  badge,
-  title,
-  subtitle,
-  price,
-  savings,
-  variant = "single",
-  image = "/assets/products/natural-smooth-510g.png",
-}: ProductCardProps) {
-  const { addItem } = useCart();
-  const isBundle = variant === "bundle";
-  const productId = isBundle
-    ? "natural-smooth-510g-pack-6"
-    : "natural-smooth-510g";
+type ProductCardProps = {
+  product?: Product;
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+  price?: string;
+  variant?: string;
+  savings?: string;
+};
+
+function priceToNumber(price?: string) {
+  if (!price) return 4.99;
+  return Number(price.replace("£", "")) || 4.99;
+}
+
+export default function ProductCard(props: ProductCardProps) {
+  const product: Product = props.product ?? {
+    id:
+      props.variant === "bundle"
+        ? "flex-natural-smooth-6-pack"
+        : "flex-natural-smooth-510g",
+    name: props.title ?? "FLEX Natural Smooth",
+    subtitle: props.subtitle ?? "Single 510g jar",
+    price: priceToNumber(props.price),
+    image: "/flex-jar.png",
+    href: "/products/natural-smooth-510g",
+    badge: props.badge ?? "Shop FLEX",
+  };
 
   return (
-    <article className="grid items-center gap-5 rounded-[18px] border border-[rgba(15,23,32,.10)] bg-white p-6 md:grid-cols-[.95fr_1.05fr]">
-      <div className="grid place-items-center rounded-2xl border border-[rgba(15,23,32,.08)] bg-[#f7f9f6] p-5">
-        <Image
-          src={image}
-          alt={title}
-          width={320}
-          height={320}
-          className="max-h-[280px] w-auto object-contain drop-shadow-xl"
-        />
+    <article className="group rounded-[2rem] bg-[#fff8ed] p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <div className="mb-4 flex items-center justify-between gap-4">
+        <span className="rounded-full bg-[#173b2f] px-4 py-2 text-xs font-black uppercase tracking-wide text-[#f6ead8]">
+          {product.badge}
+        </span>
+
+        <span className="text-xl font-black">£{product.price.toFixed(2)}</span>
       </div>
 
-      <div>
-        {badge && (
-          <div className="mb-3 inline-block rounded-full bg-[rgba(111,133,95,.14)] px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.12em]">
-            {badge}
-          </div>
-        )}
-
-        <h3 className="mb-3 text-xl font-bold">{title}</h3>
-
-        <p className="mb-4 max-w-xl text-[#5c6773]">{subtitle}</p>
-
-        <ul className="mb-5 list-disc pl-5 text-[15px] text-[#0f1720]/80">
-          <li><strong>Ingredients:</strong> Roasted peanuts 100%</li>
-          <li><strong>Allergen info:</strong> Contains peanuts</li>
-          <li>No palm oil • No added sugar</li>
-          <li><strong>Protein:</strong> 132g per jar approx.</li>
-        </ul>
-
-        <div className="mb-5 text-3xl font-black text-[#6f855f]">{price}</div>
-
-        {savings && (
-          <p className="mb-4 text-sm font-bold text-[#6f855f]">{savings}</p>
-        )}
-
-        <div className="flex flex-wrap items-center gap-3">
-          <FlexButton onClick={() => addItem(productId)}>Add to Cart</FlexButton>
-
-          <Link href="/products/natural-smooth-510g">
-            <FlexButton variant="outline">View Product</FlexButton>
-          </Link>
-
-          {isBundle && (
-            <span className="text-sm text-[#5c6773]">
-              Best for families, gyms and repeat buyers.
-            </span>
-          )}
+      <Link href={product.href} className="block">
+        <div className="rounded-[1.5rem] bg-[#f6ead8] p-6">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="mx-auto h-72 w-auto object-contain transition duration-300 group-hover:scale-105"
+          />
         </div>
+
+        <div className="mt-5">
+          <h2 className="text-2xl font-black tracking-tight">{product.name}</h2>
+          <p className="mt-2 text-sm font-bold text-[#31574a]">
+            {product.subtitle}
+          </p>
+
+          {props.savings ? (
+            <p className="mt-3 inline-flex rounded-full bg-[#e5b15a] px-3 py-1 text-xs font-black uppercase tracking-wide text-[#173b2f]">
+              {props.savings}
+            </p>
+          ) : null}
+        </div>
+      </Link>
+
+      <div className="mt-5">
+        <AddToCartButton
+          product={{
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            quantity: 1,
+          }}
+          className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#173b2f] px-6 text-sm font-black text-[#f6ead8] transition hover:bg-[#102a22]"
+        />
       </div>
     </article>
   );

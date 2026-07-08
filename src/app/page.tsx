@@ -1,21 +1,17 @@
 import Hero from "@/components/home/Hero";
 import TrustBar from "@/components/home/TrustBar";
-import QuickBuy from "@/components/home/QuickBuy";
 import WhyFlex from "@/components/home/WhyFlex";
+import Reviews from "@/components/home/Reviews";
 import FAQ from "@/components/home/FAQ";
-import BlogPreview from "@/components/home/BlogPreview";
-import Contact from "@/components/home/Contact";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main id="top" className="bg-[#f4f6f3]">
+    <main>
       <Hero />
       <TrustBar />
-      <QuickBuy />
       <WhyFlex />
+      <Reviews />
       <FAQ />
-      <BlogPreview />
-      <Contact />
     </main>
   );
 }
