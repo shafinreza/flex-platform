@@ -19,11 +19,19 @@ async function updateProduct(formData: FormData) {
     throw new Error("Invalid product update");
   }
 
-  await prisma.products.update({
+  await prisma.products.upsert({
     where: { slug },
-    data: {
+    update: {
       price,
       image,
+    },
+    create: {
+      slug,
+      name: slug,
+      description: "FLEX product",
+      price,
+      image,
+      active: true,
     },
   });
 
