@@ -7,19 +7,19 @@ const productPage = "/products/natural-smooth-510g";
 const products = [
   {
     id: "natural-smooth-510g",
-    title: "Natural Smooth Peanut Butter",
+    title: "Natural Smooth",
     subtitle: "Single 510g jar",
-    text: "100% roasted peanuts with a smooth texture and rich roasted taste.",
+    text: "100% roasted peanuts with smooth texture and rich roasted taste.",
     price: "£4.99",
     badge: "Most Popular",
     image: "/assets/products/natural-smooth-510g.png",
-    bullets: ["100% roasted peanuts", "No palm oil", "No added sugar"],
+    bullets: ["No palm oil", "No added sugar", "High protein"],
   },
   {
     id: "natural-smooth-6-pack",
-    title: "Natural Smooth Peanut Butter — 6 Pack",
+    title: "Natural Smooth 6 Pack",
     subtitle: "6 × 510g jars",
-    text: "Best value bundle for families, gym bags, oats and smoothies.",
+    text: "Best value bundle for families, oats, smoothies and everyday snacking.",
     price: "£26.99",
     badge: "Best Value",
     image: "/assets/products/natural-smooth-510g.png",
@@ -40,64 +40,67 @@ export default function HomeProductRange() {
           </h2>
         </div>
 
-        <div className="grid gap-6">
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
           {products.map((product) => (
             <article
               key={product.id}
-              className="grid min-h-[420px] items-center gap-8 rounded-[2rem] border border-[#173b2f]/10 bg-[#fff7e8] p-6 shadow-sm md:grid-cols-[0.42fr_0.58fr] md:p-8"
+              className="grid min-h-[380px] gap-5 rounded-[2rem] border border-[#173b2f]/10 bg-[#fff7e8] p-5 shadow-sm sm:grid-cols-[170px_1fr] md:p-6"
             >
-              <div className="relative grid h-full min-h-[300px] place-items-center rounded-[1.6rem] bg-[#f6ead8] p-8">
-                <span className="absolute left-5 top-5 rounded-2xl bg-[#6f855f] px-3 py-2 text-xs font-black uppercase tracking-wide text-white">
+              <div className="relative flex items-center justify-center rounded-3xl bg-[#f6ead8] p-4">
+                <span className="absolute left-4 top-4 rounded-full bg-[#6f855f] px-3 py-1.5 text-[10px] font-black uppercase tracking-wide text-white">
                   {product.badge}
                 </span>
                 <Image
                   src={product.image}
                   alt={product.title}
-                  width={520}
-                  height={520}
-                  className="h-72 w-auto object-contain mix-blend-multiply md:h-80"
+                  width={260}
+                  height={260}
+                  className="h-52 w-auto object-contain mix-blend-multiply"
                 />
               </div>
 
-              <div>
-                <p className="text-sm font-black uppercase tracking-[0.18em] text-[#6f855f]">
+              <div className="flex min-w-0 flex-col">
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#6f855f]">
                   {product.subtitle}
                 </p>
 
-                <h3 className="mt-3 max-w-2xl text-4xl font-black leading-[0.95] tracking-[-0.06em] text-[#173b2f] md:text-5xl">
+                <h3 className="mt-2 text-3xl font-black leading-none tracking-[-0.05em] text-[#173b2f]">
                   {product.title}
                 </h3>
 
-                <p className="mt-4 max-w-xl text-lg font-medium leading-relaxed text-[#31574a]">
+                <p className="mt-3 text-sm font-medium leading-relaxed text-[#31574a]">
                   {product.text}
                 </p>
 
-                <div className="mt-5 flex flex-wrap gap-3">
+                <div className="mt-4 flex flex-wrap gap-2">
                   {product.bullets.map((bullet) => (
                     <span
                       key={bullet}
-                      className="rounded-full bg-[#fffaf0] px-4 py-3 text-xs font-black uppercase tracking-wide text-[#173b2f]"
+                      className="rounded-full bg-[#fffaf0] px-3 py-2 text-[11px] font-black uppercase tracking-wide text-[#173b2f]"
                     >
                       ✓ {bullet}
                     </span>
                   ))}
                 </div>
 
-                <p className="mt-6 text-4xl font-black tracking-[-0.05em] text-[#173b2f]">
-                  {product.price}
-                </p>
+                <div className="mt-auto pt-5">
+                  <p className="text-3xl font-black tracking-[-0.05em] text-[#173b2f]">
+                    {product.price}
+                  </p>
 
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                  <AddToCartButton
-                    productId={product.id}
-                    className="inline-flex h-12 items-center justify-center rounded-full bg-[#173b2f] px-8 text-sm font-black text-[#f8ead4] transition hover:bg-[#102a22]"
-                  />
-                  <Link
-                    href={productPage}
-                    className="inline-flex h-12 items-center justify-center rounded-full border border-[#173b2f]/15 px-8 text-sm font-black text-[#173b2f] transition hover:bg-white"
-                  >
-                    View details
-                  </Link>
+                  <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                    <AddToCartButton
+                      productId={product.id}
+                      className="inline-flex h-11 items-center justify-center rounded-full bg-[#173b2f] px-5 text-sm font-black text-[#f8ead4] transition hover:bg-[#102a22]"
+                    />
+
+                    <Link
+                      href={productPage}
+                      className="inline-flex h-11 items-center justify-center rounded-full border border-[#173b2f]/15 px-5 text-sm font-black text-[#173b2f] transition hover:bg-white"
+                    >
+                      View details
+                    </Link>
+                  </div>
                 </div>
               </div>
             </article>
