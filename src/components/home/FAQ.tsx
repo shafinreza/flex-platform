@@ -5,22 +5,27 @@ const faqs = [
   ["Does FLEX contain artificial sweeteners?", "No. No artificial sweeteners, no syrups, no fillers."],
 ];
 
+import SectionHeading from "@/components/ui/SectionHeading";
+
 export default function FAQ() {
   return (
-    <section id="faq" className="px-5 py-[72px]">
-      <div className="mx-auto max-w-[1120px]">
-        <h2 className="mb-8 font-display text-[58px] leading-[0.9] tracking-[-0.02em]">
-          FAQ
-        </h2>
-
-        <div className="max-w-[900px] space-y-3">
+    <section id="faq" className="bg-[#fff8ed] px-6 py-20 md:py-24">
+      <div className="mx-auto max-w-4xl">
+        <SectionHeading
+          eyebrow="Questions"
+          title={"Frequently asked questions"}
+          subtitle={"If you have more questions feel free to reach out to our team."}
+        />
+        <div className="mt-10 space-y-4">
           {faqs.map(([q, a]) => (
             <details
               key={q}
-              className="rounded-[14px] border border-[rgba(15,23,32,.10)] bg-white p-5"
+              className="rounded-2xl border border-[#173b2f]/10 bg-white p-5"
             >
-              <summary className="cursor-pointer font-black">{q}</summary>
-              <p className="mt-3 text-[#5c6773]">{a}</p>
+              <summary className="cursor-pointer font-black text-[#173b2f]">
+                {q}
+              </summary>
+              <p className="mt-3 text-[#31574a]">{a}</p>
             </details>
           ))}
         </div>

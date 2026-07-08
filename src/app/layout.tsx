@@ -18,6 +18,7 @@ const lilita = Lilita_One({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://eatflex.uk"),
   title: "FLEX — Natural Smooth Peanut Butter",
   description:
     "FLEX natural smooth peanut butter. No added sugar, no palm oil, smooth roasted peanuts. Available as single jar, 2-pack, 3-pack and 6-pack.",

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import AddToCartButton from "@/components/cart/AddToCartButton";
 
 type Product = {
@@ -41,57 +42,60 @@ export default function ProductCard(props: ProductCardProps) {
   };
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[2rem] bg-[#fff8ed] shadow-sm ring-1 ring-[#173b2f]/10 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-      <Link href={product.href} className="block p-5 pb-0">
+    <article className="group flex h-full flex-col overflow-hidden rounded-3xl bg-[#fff8ed] ring-1 ring-[#173b2f]/10 shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl">
+      {/* Product link wraps everything except the add to cart button */}
+      <Link href={product.href} className="block p-6 pb-0">
+        {/* Badge and price */}
         <div className="mb-4 flex items-center justify-between gap-4">
-          <span className="rounded-full bg-[#173b2f] px-4 py-2 text-xs font-black uppercase tracking-wide text-[#f8ead4]">
+          <span className="rounded-full bg-[#173b2f] px-4 py-1.5 text-xs font-black uppercase tracking-wide text-[#f8ead4]">
             {product.badge}
           </span>
           <span className="text-xl font-black text-[#173b2f]">
             £{product.price.toFixed(2)}
           </span>
         </div>
-
-        <div className="rounded-[1.5rem] bg-[#f6ead8] p-6">
-          <img
+        {/* Image wrapper with subtle background */}
+        <div className="overflow-hidden rounded-2xl bg-[#f6ead8] p-8">
+          <Image
             src={product.image}
             alt={product.name}
-            className="mx-auto h-64 w-auto object-contain transition duration-300 group-hover:scale-105"
+            width={300}
+            height={300}
+            priority
+            className="mx-auto h-64 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
           />
         </div>
-
-        <div className="mt-5">
-          <h2 className="text-2xl font-black leading-tight tracking-tight text-[#173b2f]">
+        {/* Name and subtitle */}
+        <div className="mt-6">
+          <h3 className="text-2xl font-black leading-tight tracking-tight text-[#173b2f]">
             {product.name}
-          </h2>
+          </h3>
           <p className="mt-2 text-sm font-bold leading-6 text-[#31574a]">
             {product.subtitle}
           </p>
-
-          <div className="mt-4 flex flex-wrap items-center gap-2">
+          {/* Jar count, compare at price and optional savings */}
+          <div className="mt-4 flex flex-wrap items-center gap-3">
             <span className="rounded-full bg-[#f6ead8] px-3 py-1 text-xs font-black text-[#173b2f]">
               {product.jarCount} {product.jarCount === 1 ? "jar" : "jars"}
             </span>
-
-            {product.compareAtPrice ? (
-              <span className="text-xs font-black text-[#31574a]">
-                Was £{product.compareAtPrice.toFixed(2)}
+            {product.compareAtPrice && (
+              <span className="text-xs font-black text-[#6b6b5f] line-through">
+                £{product.compareAtPrice.toFixed(2)}
               </span>
-            ) : null}
-
-            {props.savings ? (
+            )}
+            {props.savings && (
               <span className="rounded-full bg-[#e5b15a] px-3 py-1 text-xs font-black uppercase tracking-wide text-[#173b2f]">
                 {props.savings}
               </span>
-            ) : null}
+            )}
           </div>
         </div>
       </Link>
-
-      <div className="mt-auto p-5">
+      {/* Add to cart button */}
+      <div className="mt-auto p-6">
         <AddToCartButton
           product={{ id: product.id }}
-          className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#173b2f] px-6 text-sm font-black text-[#f8ead4] transition hover:bg-[#102a22]"
+          className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#173b2f] px-6 text-sm font-black text-[#f8ead4] transition-colors hover:bg-[#102a22]"
         >
           Add to cart
         </AddToCartButton>

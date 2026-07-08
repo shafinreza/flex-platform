@@ -13,29 +13,28 @@ const reviews = [
   },
 ];
 
+import SectionHeading from "@/components/ui/SectionHeading";
+
 export default function Reviews() {
   return (
-    <section className="bg-[#EFDFC7] px-6 py-20 text-[#4C260F]">
+    <section className="bg-[#f6ead8] px-6 py-20 md:py-24 text-[#173b2f]">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-10">
-          <p className="mb-3 text-sm font-black uppercase tracking-[0.22em] text-[#0B864E]">
-            Reviews
-          </p>
-
-          <h2 className="text-5xl font-black md:text-7xl">
-            Loved by people who move.
-          </h2>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-3">
+        <SectionHeading
+          eyebrow="Reviews"
+          title={"Loved by those who move"}
+          subtitle={"Hear what our community says about FLEX"}
+        />
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
           {reviews.map((review) => (
             <article
               key={review.name}
-              className="rounded-[28px] border-2 border-[#4C260F] bg-white p-6 shadow-[6px_6px_0_#4C260F]"
+              className="rounded-3xl border border-[#173b2f]/10 bg-white p-6 shadow-md transition hover:-translate-y-1 hover:shadow-xl"
             >
-              <div className="mb-4 text-xl text-[#EFB236]">★★★★★</div>
-              <p className="mb-5 text-lg font-semibold">“{review.text}”</p>
-              <p className="font-black text-[#0B864E]">{review.name}</p>
+              <div className="mb-4 text-xl text-[#e5b15a]">★★★★★</div>
+              <p className="mb-5 text-base font-semibold text-[#31574a]">
+                “{review.text}”
+              </p>
+              <p className="font-black text-[#173b2f]">{review.name}</p>
             </article>
           ))}
         </div>
