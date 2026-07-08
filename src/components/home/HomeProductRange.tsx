@@ -8,7 +8,7 @@ const products = [
   {
     id: "natural-smooth-510g",
     title: "Natural Smooth",
-    subtitle: "Single 510g jar",
+    subtitle: "Single 510g Jar",
     text: "100% roasted peanuts with smooth texture and rich roasted taste.",
     price: "£4.99",
     badge: "Most Popular",
@@ -18,7 +18,7 @@ const products = [
   {
     id: "natural-smooth-6-pack",
     title: "Natural Smooth 6 Pack",
-    subtitle: "6 × 510g jars",
+    subtitle: "6 × 510g Jars",
     text: "Best value bundle for families, oats, smoothies and everyday snacking.",
     price: "£26.99",
     badge: "Best Value",
@@ -29,37 +29,38 @@ const products = [
 
 export default function HomeProductRange() {
   return (
-    <section id="products" className="bg-[#fffaf0] px-6 py-10 md:py-12">
+    <section id="products" className="bg-[#fffaf0] px-6 py-8 md:py-10">
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto mb-8 max-w-2xl text-center">
-          <p className="mb-3 text-sm font-black uppercase tracking-[0.28em] text-[#6f855f]">
+        <div className="mx-auto mb-7 max-w-2xl text-center">
+          <p className="mb-2 text-sm font-black uppercase tracking-[0.28em] text-[#6f855f]">
             Our Range
           </p>
-          <h2 className="text-4xl font-black tracking-[-0.05em] text-[#173b2f] md:text-5xl">
+          <h2 className="text-4xl font-black tracking-[-0.06em] text-[#173b2f] md:text-5xl">
             Simple. Natural. Delicious.
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
           {products.map((product) => (
             <article
               key={product.id}
-              className="grid min-h-[380px] gap-5 rounded-[2rem] border border-[#173b2f]/10 bg-[#fff7e8] p-5 shadow-sm sm:grid-cols-[170px_1fr] md:p-6"
+              className="grid min-h-[340px] gap-5 rounded-[2rem] border border-[#173b2f]/10 bg-[#fff7e8] p-5 shadow-sm sm:grid-cols-[220px_1fr]"
             >
-              <div className="relative flex items-center justify-center rounded-3xl bg-[#f6ead8] p-4">
+              <div className="relative flex items-center justify-center rounded-[1.6rem] bg-[#f6ead8] p-3">
                 <span className="absolute left-4 top-4 rounded-full bg-[#6f855f] px-3 py-1.5 text-[10px] font-black uppercase tracking-wide text-white">
                   {product.badge}
                 </span>
+
                 <Image
                   src={product.image}
                   alt={product.title}
-                  width={260}
-                  height={260}
-                  className="h-52 w-auto object-contain mix-blend-multiply"
+                  width={380}
+                  height={380}
+                  className="h-64 w-auto object-contain mix-blend-multiply"
                 />
               </div>
 
-              <div className="flex min-w-0 flex-col">
+              <div className="flex min-w-0 flex-col justify-center py-2">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-[#6f855f]">
                   {product.subtitle}
                 </p>
@@ -68,7 +69,7 @@ export default function HomeProductRange() {
                   {product.title}
                 </h3>
 
-                <p className="mt-3 text-sm font-medium leading-relaxed text-[#31574a]">
+                <p className="mt-3 max-w-md text-sm font-medium leading-relaxed text-[#31574a]">
                   {product.text}
                 </p>
 
@@ -83,24 +84,22 @@ export default function HomeProductRange() {
                   ))}
                 </div>
 
-                <div className="mt-auto pt-5">
-                  <p className="text-3xl font-black tracking-[-0.05em] text-[#173b2f]">
-                    {product.price}
-                  </p>
+                <p className="mt-5 text-3xl font-black tracking-[-0.05em] text-[#173b2f]">
+                  {product.price}
+                </p>
 
-                  <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-                    <AddToCartButton
-                      productId={product.id}
-                      className="inline-flex h-11 items-center justify-center rounded-full bg-[#173b2f] px-5 text-sm font-black text-[#f8ead4] transition hover:bg-[#102a22]"
-                    />
+                <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                  <AddToCartButton
+                    productId={product.id}
+                    className="inline-flex h-11 items-center justify-center rounded-full bg-[#173b2f] px-5 text-sm font-black text-[#f8ead4] transition hover:bg-[#102a22]"
+                  />
 
-                    <Link
-                      href={productPage}
-                      className="inline-flex h-11 items-center justify-center rounded-full border border-[#173b2f]/15 px-5 text-sm font-black text-[#173b2f] transition hover:bg-white"
-                    >
-                      View details
-                    </Link>
-                  </div>
+                  <Link
+                    href={productPage}
+                    className="inline-flex h-11 items-center justify-center rounded-full border border-[#173b2f]/15 px-5 text-sm font-black text-[#173b2f] transition hover:bg-white"
+                  >
+                    View details
+                  </Link>
                 </div>
               </div>
             </article>
