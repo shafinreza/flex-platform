@@ -32,27 +32,24 @@ const CART_STORAGE_KEY = "flex-cart";
 
 const CartContext = createContext<CartContextType | null>(null);
 
+function getInitialCart(): CartItem[] {
+  if (typeof window === "undefined") return [];
+
+  try {
+    const savedCart = window.localStorage.getItem(CART_STORAGE_KEY);
+    return savedCart ? JSON.parse(savedCart) : [];
+  } catch {
+    window.localStorage.removeItem(CART_STORAGE_KEY);
+    return [];
+  }
+}
+
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [hasLoadedCart, setHasLoadedCart] = useState(false);
+  const [items, setItems] = useState<CartItem[]>(getInitialCart);
 
   useEffect(() => {
-    try {
-      const savedCart = window.localStorage.getItem(CART_STORAGE_KEY);
-      if (savedCart) {
-        setItems(JSON.parse(savedCart));
-      }
-    } catch {
-      window.localStorage.removeItem(CART_STORAGE_KEY);
-    }
-
-    setHasLoadedCart(true);
-  }, []);
-
-  useEffect(() => {
-    if (!hasLoadedCart) return;
     window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
-  }, [items, hasLoadedCart]);
+  }, [items]);
 
   function addItem(id: string) {
     setItems((current) => {
