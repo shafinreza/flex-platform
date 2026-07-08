@@ -6,7 +6,7 @@ import FAQ from "@/components/home/FAQ";
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="bg-[#f6ead8] text-[#173b2f]">
       <Hero />
       <TrustBar />
       <WhyFlex />

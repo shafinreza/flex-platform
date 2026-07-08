@@ -28,26 +28,24 @@ function priceToNumber(price?: string) {
 
 export default function ProductCard(props: ProductCardProps) {
   const product: Product = props.product ?? {
-    id:
-      props.variant === "bundle"
-        ? "flex-natural-smooth-6-pack"
-        : "flex-natural-smooth-510g",
+    id: props.variant === "bundle" ? "natural-smooth-6-pack" : "natural-smooth-510g",
     name: props.title ?? "FLEX Natural Smooth",
     subtitle: props.subtitle ?? "Single 510g jar",
     price: priceToNumber(props.price),
-    image: "/flex-jar.png",
+    image: "/assets/products/flex-jar.png",
     href: "/products/natural-smooth-510g",
     badge: props.badge ?? "Shop FLEX",
   };
 
   return (
-    <article className="group rounded-[2rem] bg-[#fff8ed] p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+    <article className="group flex h-full flex-col rounded-[2rem] bg-[#fff8ed] p-5 shadow-sm ring-1 ring-[#173b2f]/10 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
       <div className="mb-4 flex items-center justify-between gap-4">
         <span className="rounded-full bg-[#173b2f] px-4 py-2 text-xs font-black uppercase tracking-wide text-[#f6ead8]">
           {product.badge}
         </span>
-
-        <span className="text-xl font-black">£{product.price.toFixed(2)}</span>
+        <span className="text-xl font-black text-[#173b2f]">
+          £{product.price.toFixed(2)}
+        </span>
       </div>
 
       <Link href={product.href} className="block">
@@ -60,7 +58,9 @@ export default function ProductCard(props: ProductCardProps) {
         </div>
 
         <div className="mt-5">
-          <h2 className="text-2xl font-black tracking-tight">{product.name}</h2>
+          <h2 className="text-2xl font-black tracking-tight text-[#173b2f]">
+            {product.name}
+          </h2>
           <p className="mt-2 text-sm font-bold text-[#31574a]">
             {product.subtitle}
           </p>
@@ -73,17 +73,13 @@ export default function ProductCard(props: ProductCardProps) {
         </div>
       </Link>
 
-      <div className="mt-5">
+      <div className="mt-auto pt-5">
         <AddToCartButton
-          product={{
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            quantity: 1,
-          }}
+          product={{ id: product.id }}
           className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#173b2f] px-6 text-sm font-black text-[#f6ead8] transition hover:bg-[#102a22]"
-        />
+        >
+          Add to cart
+        </AddToCartButton>
       </div>
     </article>
   );
