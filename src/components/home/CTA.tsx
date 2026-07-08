@@ -9,8 +9,8 @@ import Button from "@/components/ui/button";
  */
 export default function CTA() {
   return (
-    <section className="mx-auto my-20 max-w-7xl px-6">
-      <div className="relative overflow-hidden rounded-3xl bg-[#173b2f] p-10 text-center md:p-16">
+    <section className="mx-auto my-10 max-w-7xl px-6">
+      <div className="relative overflow-hidden rounded-3xl bg-[#173b2f] p-8 text-center md:p-12">
         <div className="relative z-10 mx-auto max-w-2xl">
           <p className="mb-3 text-sm font-black uppercase tracking-[0.25em] text-[#d9eb7c]">
             Do not miss out

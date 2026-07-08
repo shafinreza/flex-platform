@@ -17,7 +17,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 
 export default function Reviews() {
   return (
-    <section className="bg-[#f6ead8] px-6 py-20 md:py-24 text-[#173b2f]">
+    <section className="bg-[#f6ead8] px-6 py-12 md:py-14 text-[#173b2f]">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Reviews"

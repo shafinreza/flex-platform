@@ -26,7 +26,7 @@ const ways = [
  */
 export default function WaysToUse() {
   return (
-    <section id="uses" className="bg-[#fff7df] px-6 py-20 md:py-24">
+    <section id="uses" className="bg-[#fff7df] px-6 py-12 md:py-14">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Get creative"

@@ -2,7 +2,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 
 export default function WhyFlex() {
   return (
-    <section id="story" className="bg-[#e9f1e6] px-6 py-20 md:py-24">
+    <section id="story" className="bg-[#e9f1e6] px-6 py-12 md:py-14">
       <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2">
         {/* Story copy */}
         <div>

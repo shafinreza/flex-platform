@@ -3,7 +3,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 
 export default function Ingredients() {
   return (
-    <section id="ingredients" className="bg-[#f6ead8] px-6 py-12 md:py-14">
+    <section id="ingredients" className="bg-[#f6ead8] px-6 py-10 md:py-12">
       <div className="mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-2">
         <div>
           <SectionHeading

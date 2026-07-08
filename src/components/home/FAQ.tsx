@@ -9,7 +9,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 
 export default function FAQ() {
   return (
-    <section id="faq" className="bg-[#fff8ed] px-6 py-20 md:py-24">
+    <section id="faq" className="bg-[#fff8ed] px-6 py-12 md:py-14">
       <div className="mx-auto max-w-4xl">
         <SectionHeading
           eyebrow="Questions"

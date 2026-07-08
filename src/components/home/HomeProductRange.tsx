@@ -44,7 +44,7 @@ export default function HomeProductRange() {
           {products.map((product) => (
             <article
               key={product.id}
-              className="grid min-h-[340px] gap-5 rounded-[2rem] border border-[#173b2f]/10 bg-[#fff7e8] p-5 shadow-sm sm:grid-cols-[220px_1fr]"
+              className="group grid min-h-[350px] gap-5 rounded-[2rem] border border-[#173b2f]/10 bg-[#fff7e8] p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-xl sm:grid-cols-[240px_1fr]"
             >
               <div className="relative flex items-center justify-center rounded-[1.6rem] bg-[#f6ead8] p-3">
                 <span className="absolute left-4 top-4 rounded-full bg-[#6f855f] px-3 py-1.5 text-[10px] font-black uppercase tracking-wide text-white">
@@ -54,9 +54,9 @@ export default function HomeProductRange() {
                 <Image
                   src={product.image}
                   alt={product.title}
-                  width={380}
-                  height={380}
-                  className="h-64 w-auto object-contain mix-blend-multiply"
+                  width={430}
+                  height={430}
+                  className="h-72 w-auto object-contain mix-blend-multiply transition duration-200 group-hover:scale-105"
                 />
               </div>
 
@@ -68,6 +68,11 @@ export default function HomeProductRange() {
                 <h3 className="mt-2 text-3xl font-black leading-none tracking-[-0.05em] text-[#173b2f]">
                   {product.title}
                 </h3>
+
+                <div className="mt-3 flex items-center gap-2 text-sm font-black">
+                  <span className="text-[#e5b15a]">★★★★★</span>
+                  <span className="text-[#173b2f]">4.5 star reviews</span>
+                </div>
 
                 <p className="mt-3 max-w-md text-sm font-medium leading-relaxed text-[#31574a]">
                   {product.text}
