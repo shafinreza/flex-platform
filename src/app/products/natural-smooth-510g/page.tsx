@@ -4,6 +4,7 @@ import AddToCartButton from "@/components/cart/AddToCartButton";
 import NutritionTable from "@/components/product/NutritionTable";
 import ProductFAQ from "@/components/product/ProductFAQ";
 import ProductReviews from "@/components/product/ProductReviews";
+import ProductImageGallery from "@/components/product/ProductImageGallery";
 import { getStoreProductById } from "@/lib/product-store";
 
 export const metadata: Metadata = {
@@ -69,40 +70,11 @@ export default async function ProductPage() {
           isPrimary: true,
         },
       ];
-  const mainImage = gallery.find((image) => image.isPrimary) || gallery[0];
   return (
     <main className="bg-[#f6ead8] text-[#173b2f]">
       <section className="px-6 py-8 md:py-10">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.92fr_1fr]">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <div className="rounded-[2rem] border border-[#173b2f]/10 bg-[#fffaf0] p-6 shadow-sm">
-              <Image
-                src={mainImage.imageUrl}
-                alt={mainImage.altText}
-                width={900}
-                height={900}
-                priority
-                className="mx-auto h-auto max-h-[590px] w-auto object-contain mix-blend-multiply"
-              />
-            </div>
-
-            <div className="mt-4 grid grid-cols-3 gap-3">
-              {gallery.slice(0, 6).map((image, index) => (
-                <div
-                  key={image.id}
-                  className="grid h-28 place-items-center rounded-2xl border border-[#173b2f]/10 bg-[#fff7e8] p-3"
-                >
-                  <Image
-                    src={image.imageUrl}
-                    alt={image.altText || `FLEX product image ${index + 1}`}
-                    width={160}
-                    height={160}
-                    className="max-h-20 w-auto object-contain mix-blend-multiply"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <ProductImageGallery images={gallery} />
 
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em] text-[#6f855f]">
