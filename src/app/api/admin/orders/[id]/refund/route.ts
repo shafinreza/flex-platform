@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { prisma } from "@/lib/prisma";
+import { sendRefundedEmail } from "@/services/email.service";
 
 export const runtime = "nodejs";
 
@@ -16,6 +17,10 @@ export async function POST(_req: Request, { params }: RouteProps) {
 
     const order = await prisma.orders.findUnique({
       where: { id },
+      include: {
+        customers: true,
+        order_items: { include: { products: true } },
+      },
     });
 
     if (!order) {
@@ -47,7 +52,7 @@ export async function POST(_req: Request, { params }: RouteProps) {
       payment_intent: paymentIntent,
     });
 
-    await prisma.orders.update({
+    const updatedOrder = await prisma.orders.update({
       where: { id },
       data: {
         stripe_payment_intent: paymentIntent,
@@ -56,7 +61,37 @@ export async function POST(_req: Request, { params }: RouteProps) {
         refunded_at: new Date(),
         cancelled_at: new Date(),
       },
+      include: {
+        customers: true,
+        order_items: { include: { products: true } },
+      },
     });
+
+    if (updatedOrder.customers?.email) {
+      await sendRefundedEmail({
+        orderId: updatedOrder.id,
+        customerEmail: updatedOrder.customers.email,
+        customerName: `${updatedOrder.customers.first_name || ""} ${updatedOrder.customers.last_name || ""}`.trim(),
+        items: updatedOrder.order_items.map((item) => ({
+          name: item.products?.name || "FLEX product",
+          quantity: item.quantity || 0,
+          price: Number(item.price || 0),
+        })),
+        subtotal: Number(updatedOrder.subtotal || 0),
+        delivery: Number(updatedOrder.delivery || 0),
+        discount: Number(updatedOrder.discount_amount || 0),
+        total: Number(updatedOrder.total || 0),
+        address: [
+          updatedOrder.recipient_name || "",
+          updatedOrder.address_line1 || "",
+          updatedOrder.address_line2 || "",
+          updatedOrder.city || "",
+          updatedOrder.county || "",
+          updatedOrder.postcode || "",
+          updatedOrder.country || "",
+        ],
+      });
+    }
 
     return NextResponse.json({ ok: true });
   } catch (error) {
