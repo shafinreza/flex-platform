@@ -116,7 +116,7 @@ export default function CartDrawer() {
               ) : null}
             </div>
 
-            <div className="shrink-0 space-y-3 overflow-visible px-5 py-4">
+            <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-5 py-4 pb-6">
               {detailedItems.map((item) => (
                 <div
                   key={item.id}
@@ -197,7 +197,7 @@ export default function CartDrawer() {
               ) : null}
             </div>
 
-            <div className="mt-auto shrink-0 border-t border-[#173b2f]/10 bg-[#fff8ed] px-5 py-4">
+            <div className="shrink-0 border-t border-[#173b2f]/10 bg-[#fff8ed] px-5 py-4 shadow-[0_-12px_30px_rgba(24,59,34,0.08)]">
               <div className="space-y-2 text-sm font-bold">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
