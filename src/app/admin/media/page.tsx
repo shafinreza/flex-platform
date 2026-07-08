@@ -3,13 +3,7 @@ import { ArrowLeft, ImageIcon, Upload } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminMediaPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ uploaded?: string; url?: string; error?: string }>;
-}) {
-  const params = await searchParams;
-
+export default function AdminMediaPage() {
   return (
     <main className="px-5 py-6 lg:px-8 lg:py-8">
       <Link
@@ -30,8 +24,8 @@ export default async function AdminMediaPage({
         </h1>
 
         <p className="mt-5 max-w-2xl text-base font-bold leading-7 text-[#31574a]">
-          Upload product photography to Supabase Storage and use the generated
-          URL across homepage, shop, product page and cart.
+          Upload product photography to Supabase Storage. To assign an image to
+          a product, use the upload form on the Products page.
         </p>
       </section>
 
@@ -75,23 +69,6 @@ export default async function AdminMediaPage({
               <Upload size={16} />
               Upload
             </button>
-
-            {params.uploaded ? (
-              <div className="mt-6 rounded-2xl bg-[#f6ead8] p-4">
-                <p className="text-sm font-black text-[#173b2f]">
-                  Uploaded successfully.
-                </p>
-                <p className="mt-2 text-xs font-bold text-[#31574a]">
-                  You can now use this image from the product upload form.
-                </p>
-              </div>
-            ) : null}
-
-            {params.error ? (
-              <p className="mt-5 rounded-2xl bg-red-50 p-4 text-sm font-black text-red-700">
-                Upload failed. Check Supabase bucket and service role key.
-              </p>
-            ) : null}
           </form>
         </div>
       </section>

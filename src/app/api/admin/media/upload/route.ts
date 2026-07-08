@@ -18,14 +18,14 @@ export async function POST(req: Request) {
     const file = formData.get("file");
 
     if (!(file instanceof File)) {
-      return NextResponse.redirect(new URL("/admin/media?error=no-file", req.url));
+      return NextResponse.redirect(new URL("/admin/media", req.url));
     }
 
     await uploadMediaFile(file);
 
-    return NextResponse.redirect(new URL("/admin/media?uploaded=1", req.url));
+    return NextResponse.redirect(new URL("/admin/media", req.url));
   } catch (error) {
     console.error("Media upload failed:", error);
-    return NextResponse.redirect(new URL("/admin/media?error=upload", req.url));
+    return NextResponse.redirect(new URL("/admin/media", req.url));
   }
 }
