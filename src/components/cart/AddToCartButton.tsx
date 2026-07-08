@@ -48,10 +48,10 @@ export default function AddToCartButton({
       onClick={handleAdd}
       className={
         className ||
-        "inline-flex h-14 items-center justify-center rounded-full bg-[#173b2f] px-8 text-base font-black text-[#f6ead8] shadow-lg transition hover:-translate-y-0.5 hover:bg-[#102a22]"
+        "inline-flex h-14 items-center justify-center rounded-full bg-[#173b2f] px-8 text-base font-black text-[#f8ead4] shadow-lg transition hover:-translate-y-0.5 hover:bg-[#102a22]"
       }
     >
-      {added ? "Added to cart" : children ?? "Add to cart"}
+      {added ? "Added" : children ?? "Add to cart"}
     </button>
   );
 }

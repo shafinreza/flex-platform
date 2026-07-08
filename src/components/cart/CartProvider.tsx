@@ -1,18 +1,19 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { bundles, productFamilies } from "@/data/products";
+import { catalog } from "@/data/products";
 
 export type CartItem = {
   id: string;
   quantity: number;
 };
 
-type DetailedCartItem = {
+export type DetailedCartItem = {
   id: string;
   name: string;
   price: number;
   image: string;
+  jarCount: number;
   quantity: number;
 };
 
@@ -31,32 +32,18 @@ const CART_STORAGE_KEY = "flex-cart";
 
 const CartContext = createContext<CartContextType | null>(null);
 
-const catalog = [
-  ...productFamilies.flatMap((family) =>
-    family.variants.map((variant) => ({
-      id: variant.id,
-      name: `FLEX ${variant.name}`,
-      price: variant.price,
-      image: variant.image,
-    }))
-  ),
-  ...bundles.map((bundle) => ({
-    id: bundle.id,
-    name: bundle.fullName,
-    price: bundle.price,
-    image: bundle.image,
-  })),
-];
-
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [hasLoadedCart, setHasLoadedCart] = useState(false);
 
   useEffect(() => {
-    const savedCart = window.localStorage.getItem(CART_STORAGE_KEY);
-
-    if (savedCart) {
-      setItems(JSON.parse(savedCart));
+    try {
+      const savedCart = window.localStorage.getItem(CART_STORAGE_KEY);
+      if (savedCart) {
+        setItems(JSON.parse(savedCart));
+      }
+    } catch {
+      window.localStorage.removeItem(CART_STORAGE_KEY);
     }
 
     setHasLoadedCart(true);
@@ -92,9 +79,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
 
     setItems((current) =>
-      current.map((item) =>
-        item.id === id ? { ...item, quantity } : item
-      )
+      current.map((item) => (item.id === id ? { ...item, quantity } : item))
     );
   }
 

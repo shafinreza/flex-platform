@@ -1,7 +1,12 @@
 import Link from "next/link";
 import AddToCartButton from "@/components/cart/AddToCartButton";
 import ProductCard from "@/components/shop/ProductCard";
-import { featuredVariant, storefrontProducts } from "@/data/products";
+import {
+  FREE_SHIPPING_THRESHOLD,
+  featuredBundle,
+  featuredVariant,
+  storefrontProducts,
+} from "@/data/products";
 
 export default function Hero() {
   return (
@@ -22,22 +27,22 @@ export default function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <AddToCartButton product={{ id: featuredVariant.id }}>
-              Add single jar — £{featuredVariant.price.toFixed(2)}
+            <AddToCartButton product={{ id: featuredBundle.id }}>
+              Get 6-pack — £{featuredBundle.price.toFixed(2)}
             </AddToCartButton>
 
             <Link
-              href="/shop"
-              className="inline-flex h-14 items-center justify-center rounded-full border-2 border-[#173b2f] px-8 text-base font-black transition hover:bg-[#173b2f] hover:text-[#f6ead8]"
+              href="#products"
+              className="inline-flex h-14 items-center justify-center rounded-full border-2 border-[#173b2f] px-8 text-base font-black transition hover:bg-[#173b2f] hover:text-[#f8ead4]"
             >
-              Shop all
+              Choose pack size
             </Link>
           </div>
 
           <div className="mt-8 grid max-w-xl grid-cols-3 gap-3 text-center text-xs font-black uppercase tracking-wide">
             <div className="rounded-2xl bg-white/60 px-3 py-4">No added sugar</div>
             <div className="rounded-2xl bg-white/60 px-3 py-4">No palm oil</div>
-            <div className="rounded-2xl bg-white/60 px-3 py-4">510g jar</div>
+            <div className="rounded-2xl bg-white/60 px-3 py-4">Free delivery £{FREE_SHIPPING_THRESHOLD}+</div>
           </div>
         </div>
 
@@ -50,16 +55,16 @@ export default function Hero() {
               className="mx-auto max-h-[520px] w-auto object-contain"
             />
 
-            <div className="mt-6 rounded-3xl bg-[#173b2f] p-6 text-[#f6ead8]">
+            <div className="mt-6 rounded-3xl bg-[#173b2f] p-6 text-[#f8ead4]">
               <div className="flex items-end justify-between gap-4">
                 <div>
-                  <p className="text-sm font-bold opacity-80">Single 510g jar</p>
+                  <p className="text-sm font-bold opacity-80">Best value</p>
                   <p className="text-3xl font-black">
-                    £{featuredVariant.price.toFixed(2)}
+                    6-pack £{featuredBundle.price.toFixed(2)}
                   </p>
                 </div>
                 <p className="max-w-[180px] text-right text-sm font-bold">
-                  Smooth, roasted, naturally powerful.
+                  Unlock free UK delivery and stock up properly.
                 </p>
               </div>
             </div>
@@ -83,7 +88,7 @@ export default function Hero() {
           </Link>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {storefrontProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

@@ -1,5 +1,5 @@
 import ProductCard from "@/components/shop/ProductCard";
-import { storefrontProducts } from "@/data/products";
+import { FREE_SHIPPING_THRESHOLD, storefrontProducts } from "@/data/products";
 
 export default function ShopPage() {
   return (
@@ -16,11 +16,15 @@ export default function ShopPage() {
 
           <p className="mt-6 text-lg leading-8 text-[#31574a]">
             Natural smooth peanut butter made with roasted peanuts. No palm oil,
-            no added sugar, no fillers. Buy one jar or stock up with the pack of 6.
+            no added sugar, no fillers. Buy one jar or stock up with better-value packs.
+          </p>
+
+          <p className="mt-5 inline-flex rounded-full bg-[#173b2f] px-5 py-3 text-sm font-black text-[#f8ead4]">
+            Free UK delivery on orders over £{FREE_SHIPPING_THRESHOLD}
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {storefrontProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
