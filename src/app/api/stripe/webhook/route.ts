@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { prisma } from "@/lib/prisma";
 import { bundles, productFamilies } from "@/data/products";
+import { sendOrderEmails } from "@/services/email.service";
 
 export const runtime = "nodejs";
 
@@ -148,6 +149,8 @@ export async function POST(req: Request) {
       },
     });
 
+    const emailItems = [];
+
     for (const item of items) {
       const productData = catalog.find(
         (product) => product.id === item.id
@@ -184,7 +187,33 @@ export async function POST(req: Request) {
           price: productData.price,
         },
       });
+
+      emailItems.push({
+        name: productData.name,
+        quantity: item.quantity,
+        price: productData.price,
+      });
     }
+
+    await sendOrderEmails({
+      orderId: order.id,
+      customerEmail: email,
+      customerName: name,
+      items: emailItems,
+      subtotal: (fullSession.amount_subtotal || 0) / 100,
+      delivery: (fullSession.shipping_cost?.amount_total || 0) / 100,
+      discount: discount / 100,
+      total: (fullSession.amount_total || 0) / 100,
+      address: [
+        name,
+        address?.line1 || "",
+        address?.line2 || "",
+        address?.city || "",
+        address?.state || "",
+        address?.postal_code || "",
+        address?.country || "",
+      ],
+    });
   }
 
   return NextResponse.json({
