@@ -131,8 +131,8 @@ export default function CartDrawer() {
                       £{item.price.toFixed(2)}
                     </p>
 
-                    <div className="mt-3 flex items-center justify-between">
-                      <div className="flex items-center rounded-full border border-[#173b2f]/15">
+                    <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="flex w-fit items-center rounded-full border border-[#173b2f]/15">
                         <button
                           type="button"
                           onClick={() => setJarQuantity(item.id, item.jarCount - 1)}
@@ -157,7 +157,7 @@ export default function CartDrawer() {
                       <button
                         type="button"
                         onClick={() => removeItem(item.id)}
-                        className="inline-flex items-center gap-1 text-xs font-black uppercase tracking-[0.12em] text-[#31574a]"
+                        className="inline-flex w-fit items-center gap-1 text-xs font-black uppercase tracking-[0.12em] text-[#31574a]"
                       >
                         <Trash2 className="h-3 w-3" />
                         Remove
