@@ -116,7 +116,7 @@ export default function CartDrawer() {
               ) : null}
             </div>
 
-            <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-5 py-4">
+            <div className="shrink-0 space-y-3 overflow-visible px-5 py-4">
               {detailedItems.map((item) => (
                 <div
                   key={item.id}
@@ -188,16 +188,16 @@ export default function CartDrawer() {
                     Upgrade offer
                   </p>
                   <p className="mt-2 text-lg font-black">
-                    Add 6-pack for £{featuredBundle.price.toFixed(2)}
+                    Upgrade to 6-pack — £{featuredBundle.price.toFixed(2)}
                   </p>
                   <p className="mt-1 text-sm font-bold text-[#31574a]">
-                    Best value and qualifies for free UK delivery.
+                    Best value + free UK delivery.
                   </p>
                 </button>
               ) : null}
             </div>
 
-            <div className="shrink-0 border-t border-[#173b2f]/10 bg-[#fff8ed] px-5 py-4">
+            <div className="mt-auto shrink-0 border-t border-[#173b2f]/10 bg-[#fff8ed] px-5 py-4">
               <div className="space-y-2 text-sm font-bold">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
