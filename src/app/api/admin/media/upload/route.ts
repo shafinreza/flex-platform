@@ -21,11 +21,9 @@ export async function POST(req: Request) {
       return NextResponse.redirect(new URL("/admin/media?error=no-file", req.url));
     }
 
-    const url = await uploadMediaFile(file);
+    await uploadMediaFile(file);
 
-    return NextResponse.redirect(
-      new URL(`/admin/media?uploaded=1&url=${encodeURIComponent(url)}`, req.url)
-    );
+    return NextResponse.redirect(new URL("/admin/media?uploaded=1", req.url));
   } catch (error) {
     console.error("Media upload failed:", error);
     return NextResponse.redirect(new URL("/admin/media?error=upload", req.url));

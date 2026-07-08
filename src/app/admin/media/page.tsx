@@ -76,13 +76,13 @@ export default async function AdminMediaPage({
               Upload
             </button>
 
-            {params.uploaded && params.url ? (
+            {params.uploaded ? (
               <div className="mt-6 rounded-2xl bg-[#f6ead8] p-4">
                 <p className="text-sm font-black text-[#173b2f]">
-                  Uploaded successfully:
+                  Uploaded successfully.
                 </p>
-                <p className="mt-2 break-all text-xs font-bold text-[#31574a]">
-                  {params.url}
+                <p className="mt-2 text-xs font-bold text-[#31574a]">
+                  You can now use this image from the product upload form.
                 </p>
               </div>
             ) : null}
