@@ -2,6 +2,7 @@
 
 import { ReactNode, useState } from "react";
 import { useCart } from "@/components/cart/CartProvider";
+import { trackAddToCart } from "@/lib/analytics";
 
 type Product = {
   id: string;
@@ -36,6 +37,7 @@ export default function AddToCartButton({
       addItem(id);
     }
 
+    trackAddToCart(id, amount);
     setAdded(true);
     window.dispatchEvent(new Event("flex:open-cart"));
     window.dispatchEvent(new Event("flex-cart-open"));

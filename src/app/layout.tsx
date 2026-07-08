@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { CartProvider } from "@/components/cart/CartProvider";
+import Analytics from "@/components/analytics/Analytics";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,21 +18,21 @@ const lilita = Lilita_One({
 });
 
 export const metadata: Metadata = {
-  title: "FLEX — Performance Peanut Butter",
+  title: "FLEX — Natural Smooth Peanut Butter",
   description:
-    "FLEX performance peanut butter. 100% roasted peanuts. No palm oil. No added sugar. Built for training days and everyday fuel.",
+    "FLEX natural smooth peanut butter. No added sugar, no palm oil, smooth roasted peanuts. Available as single jar, 2-pack, 3-pack and 6-pack.",
   openGraph: {
-    title: "FLEX — Performance Peanut Butter",
+    title: "FLEX — Natural Smooth Peanut Butter",
     description:
-      "Clean, performance-driven fuel. Roasted peanuts. No fillers. Just FLEX.",
+      "Clean, smooth peanut butter made with roasted peanuts. No added sugar. No palm oil.",
     type: "website",
     images: ["/assets/products/flex-jar.png"],
   },
   twitter: {
     card: "summary_large_image",
-    title: "FLEX — Performance Peanut Butter",
+    title: "FLEX — Natural Smooth Peanut Butter",
     description:
-      "Clean, performance-driven fuel. Roasted peanuts. No fillers. Just FLEX.",
+      "Clean, smooth peanut butter made with roasted peanuts. No added sugar. No palm oil.",
     images: ["/assets/products/flex-jar.png"],
   },
 };
@@ -42,13 +43,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-GB">
-      <body className={`${inter.variable} ${lilita.variable}`}>
+    <html lang="en" className={`${inter.variable} ${lilita.variable}`}>
+      <body>
         <CartProvider>
           <Navbar />
           {children}
           <Footer />
         </CartProvider>
+        <Analytics />
       </body>
     </html>
   );

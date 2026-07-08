@@ -14,6 +14,7 @@ import {
 import { FREE_SHIPPING_THRESHOLD, featuredBundle } from "@/data/products";
 import { STANDARD_SHIPPING_PRICE } from "@/data/shipping";
 import { useCart } from "@/components/cart/CartProvider";
+import { trackCheckoutStarted } from "@/lib/analytics";
 
 export default function CartDrawer() {
   const [open, setOpen] = useState(false);
@@ -194,7 +195,7 @@ export default function CartDrawer() {
 
               <button
                 type="button"
-                onClick={checkout}
+                onClick={() => { trackCheckoutStarted(subtotal); checkout(); }}
                 className="mt-5 h-14 w-full rounded-full bg-[#173b2f] text-base font-black text-[#f8ead4] transition hover:bg-[#102a22]"
               >
                 Secure checkout
