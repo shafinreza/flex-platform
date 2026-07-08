@@ -12,10 +12,10 @@ export default function Navbar() {
           <Image
             src="/assets/brand/flex-logo.png"
             alt="FLEX"
-            width={118}
-            height={42}
+            width={150}
+            height={54}
             priority
-            className="h-10 w-auto"
+            className="h-12 w-auto md:h-14"
           />
         </Link>
 

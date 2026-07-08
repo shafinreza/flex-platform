@@ -1,4 +1,5 @@
 import NewHero from "@/components/home/NewHero";
+import HomeProductRange from "@/components/home/HomeProductRange";
 import Benefits from "@/components/home/Benefits";
 import Ingredients from "@/components/home/Ingredients";
 import WaysToUse from "@/components/home/WaysToUse";
@@ -11,6 +12,7 @@ export default function HomePage() {
   return (
     <main className="bg-[#f6ead8] text-[#173b2f]">
       <NewHero />
+      <HomeProductRange />
       <Benefits />
       <Ingredients />
       <WaysToUse />
