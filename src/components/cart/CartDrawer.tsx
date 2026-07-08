@@ -46,6 +46,9 @@ export default function CartDrawer() {
   const delivery = subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0 ? 0 : STANDARD_SHIPPING_PRICE;
   const total = subtotal + delivery;
   const cartCount = items.reduce((total, item) => total + item.quantity, 0);
+  const jarCount = detailedItems.reduce((total, item) => total + item.jarCount * item.quantity, 0);
+  const singleJarTotal = jarCount * 4.99;
+  const savings = Math.max(0, singleJarTotal - subtotal);
   const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
   const progress = Math.min(100, (subtotal / FREE_SHIPPING_THRESHOLD) * 100);
   const hasSixPack = items.some((item) => item.id === featuredBundle.id);
@@ -61,7 +64,7 @@ export default function CartDrawer() {
         ) : null}
       </SheetTrigger>
 
-      <SheetContent className="flex w-full flex-col bg-[#f6ead8] p-0 text-[#173b2f] sm:max-w-md">
+      <SheetContent className="flex w-full flex-col bg-[#f6ead8] p-0 text-[#173b2f] sm:max-w-lg">
         <SheetHeader className="border-b border-[#173b2f]/10 p-6 text-left">
           <SheetTitle className="text-2xl font-black text-[#173b2f]">
             Your cart {cartCount > 0 ? `(${cartCount})` : ""}
@@ -98,6 +101,12 @@ export default function CartDrawer() {
                   style={{ width: `${progress}%` }}
                 />
               </div>
+
+              {savings > 0 ? (
+                <p className="mt-3 rounded-full bg-[#fff8ed] px-4 py-2 text-sm font-black text-[#173b2f]">
+                  You saved £{savings.toFixed(2)} with bundle pricing.
+                </p>
+              ) : null}
             </div>
 
             <div className="flex-1 space-y-4 overflow-y-auto p-6">
@@ -183,6 +192,12 @@ export default function CartDrawer() {
                   <span>Subtotal</span>
                   <span>£{subtotal.toFixed(2)}</span>
                 </div>
+                {savings > 0 ? (
+                  <div className="flex justify-between text-[#6f855f]">
+                    <span>Bundle saving</span>
+                    <span>-£{savings.toFixed(2)}</span>
+                  </div>
+                ) : null}
                 <div className="flex justify-between">
                   <span>Delivery</span>
                   <span>{delivery === 0 ? "Free" : `£${delivery.toFixed(2)}`}</span>

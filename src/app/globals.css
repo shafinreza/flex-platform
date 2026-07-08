@@ -855,3 +855,29 @@ body {
     height: 94px;
   }
 }
+
+/* FLEX mobile polish */
+@media (max-width: 640px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  h1 {
+    text-wrap: balance;
+  }
+
+  section {
+    scroll-margin-top: 88px;
+  }
+
+  .mobile-tight {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+@media (hover: none) {
+  .group:hover {
+    transform: none;
+  }
+}
