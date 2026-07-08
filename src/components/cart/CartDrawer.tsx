@@ -38,7 +38,7 @@ export default function CartDrawer() {
     detailedItems,
     addItem,
     removeItem,
-    updateQuantity,
+    setJarQuantity,
     subtotal,
     checkout,
   } = useCart();
@@ -126,18 +126,18 @@ export default function CartDrawer() {
                       <div className="flex items-center rounded-full border border-[#173b2f]/15">
                         <button
                           type="button"
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          onClick={() => setJarQuantity(item.id, item.jarCount - 1)}
                           className="grid h-9 w-9 place-items-center text-lg font-black"
                           aria-label="Decrease quantity"
                         >
                           −
                         </button>
                         <span className="w-8 text-center text-sm font-black">
-                          {item.quantity}
+                          {item.jarCount}
                         </span>
                         <button
                           type="button"
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() => setJarQuantity(item.id, item.jarCount + 1)}
                           className="grid h-9 w-9 place-items-center text-lg font-black"
                           aria-label="Increase quantity"
                         >

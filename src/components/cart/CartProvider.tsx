@@ -23,12 +23,20 @@ type CartContextType = {
   addItem: (id: string) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
+  setJarQuantity: (id: string, jarQuantity: number) => void;
   clearCart: () => void;
   subtotal: number;
   checkout: () => Promise<void>;
 };
 
 const CART_STORAGE_KEY = "flex-cart";
+
+const JAR_PACKS = [
+  { jars: 1, id: "natural-smooth-510g" },
+  { jars: 2, id: "natural-smooth-2-pack" },
+  { jars: 3, id: "natural-smooth-3-pack" },
+  { jars: 6, id: "natural-smooth-6-pack" },
+];
 
 const CartContext = createContext<CartContextType | null>(null);
 
@@ -42,6 +50,17 @@ function getInitialCart(): CartItem[] {
     window.localStorage.removeItem(CART_STORAGE_KEY);
     return [];
   }
+}
+
+function getPackByJarCount(jarQuantity: number) {
+  if (jarQuantity <= 1) return JAR_PACKS[0];
+  if (jarQuantity === 2) return JAR_PACKS[1];
+  if (jarQuantity === 3) return JAR_PACKS[2];
+  return JAR_PACKS[3];
+}
+
+function isFlexJarProduct(id: string) {
+  return JAR_PACKS.some((pack) => pack.id === id);
 }
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
@@ -69,7 +88,44 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems((current) => current.filter((item) => item.id !== id));
   }
 
+  function setJarQuantity(id: string, jarQuantity: number) {
+    if (!isFlexJarProduct(id)) {
+      updateQuantity(id, jarQuantity);
+      return;
+    }
+
+    if (jarQuantity <= 0) {
+      removeItem(id);
+      return;
+    }
+
+    const pack = getPackByJarCount(jarQuantity);
+
+    setItems((current) => {
+      const withoutCurrentFlexPacks = current.filter(
+        (item) => !isFlexJarProduct(item.id)
+      );
+
+      const existingPack = withoutCurrentFlexPacks.find(
+        (item) => item.id === pack.id
+      );
+
+      if (existingPack) {
+        return withoutCurrentFlexPacks.map((item) =>
+          item.id === pack.id ? { ...item, quantity: 1 } : item
+        );
+      }
+
+      return [...withoutCurrentFlexPacks, { id: pack.id, quantity: 1 }];
+    });
+  }
+
   function updateQuantity(id: string, quantity: number) {
+    if (isFlexJarProduct(id)) {
+      setJarQuantity(id, quantity);
+      return;
+    }
+
     if (quantity <= 0) {
       removeItem(id);
       return;
@@ -137,6 +193,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         addItem,
         removeItem,
         updateQuantity,
+        setJarQuantity,
         clearCart,
         subtotal,
         checkout,
