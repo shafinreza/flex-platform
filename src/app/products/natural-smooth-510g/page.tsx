@@ -2,8 +2,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import AddToCartButton from "@/components/cart/AddToCartButton";
 import NutritionTable from "@/components/product/NutritionTable";
-import ProductReviews from "@/components/product/ProductReviews";
 import ProductFAQ from "@/components/product/ProductFAQ";
+import ProductReviews from "@/components/product/ProductReviews";
 
 export const metadata: Metadata = {
   title: "FLEX Natural Smooth Peanut Butter 510g",
@@ -18,7 +18,7 @@ const packs = [
     detail: "1 × 510g",
     price: "£4.99",
     badge: "Most Popular",
-    note: "Try FLEX",
+    saving: "",
   },
   {
     id: "natural-smooth-2-pack",
@@ -26,7 +26,7 @@ const packs = [
     detail: "2 × 510g",
     price: "£9.49",
     badge: "Save 49p",
-    note: "Good for regular use",
+    saving: "Better than buying singles",
   },
   {
     id: "natural-smooth-3-pack",
@@ -34,7 +34,7 @@ const packs = [
     detail: "3 × 510g",
     price: "£13.99",
     badge: "Popular",
-    note: "Best for families",
+    saving: "Save 98p",
   },
   {
     id: "natural-smooth-6-pack",
@@ -42,53 +42,53 @@ const packs = [
     detail: "6 × 510g",
     price: "£26.99",
     badge: "Best Value",
-    note: "Free UK delivery",
+    saving: "Free UK delivery",
   },
 ];
 
-const benefits = [
-  "100% roasted peanuts",
+const trust = [
+  "Secure checkout",
+  "Free delivery over £25",
   "No palm oil",
   "No added sugar",
-  "25.7g protein /100g",
 ];
 
 export default function ProductPage() {
   return (
     <main className="bg-[#f6ead8] text-[#173b2f]">
       <section className="px-6 py-8 md:py-10">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1fr]">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.92fr_1fr]">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <div className="rounded-[2rem] border border-[#173b2f]/10 bg-[#fffaf0] p-6 shadow-sm">
               <Image
                 src="/assets/products/natural-smooth-510g.png"
                 alt="FLEX Natural Smooth Peanut Butter"
-                width={820}
-                height={820}
+                width={900}
+                height={900}
                 priority
-                className="mx-auto h-auto max-h-[560px] w-auto object-contain mix-blend-multiply"
+                className="mx-auto h-auto max-h-[590px] w-auto object-contain mix-blend-multiply"
               />
             </div>
 
             <div className="mt-4 grid grid-cols-3 gap-3">
-              {["Front", "Texture", "Ingredients"].map((label) => (
+              {["510g jar", "100% peanuts", "Smooth texture"].map((item) => (
                 <div
-                  key={label}
-                  className="rounded-2xl border border-[#173b2f]/10 bg-[#fff7e8] p-3 text-center text-xs font-black uppercase tracking-wide text-[#31574a]"
+                  key={item}
+                  className="rounded-2xl border border-[#173b2f]/10 bg-[#fff7e8] px-3 py-4 text-center text-xs font-black uppercase tracking-wide text-[#31574a]"
                 >
-                  {label}
+                  {item}
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="flex flex-col justify-center">
+          <div>
             <p className="text-sm font-black uppercase tracking-[0.28em] text-[#6f855f]">
               Natural Smooth Peanut Butter
             </p>
 
             <h1 className="mt-4 text-5xl font-black leading-[0.9] tracking-[-0.06em] md:text-7xl">
-              Smooth peanut butter. Clean everyday fuel.
+              Clean fuel. Rich roasted taste.
             </h1>
 
             <div className="mt-5 flex items-center gap-2 text-sm font-black">
@@ -97,31 +97,32 @@ export default function ProductPage() {
             </div>
 
             <p className="mt-5 max-w-xl text-lg font-medium leading-relaxed text-[#31574a]">
-              Premium peanut butter made from 100% roasted peanuts. No palm oil,
-              no added sugar, no fillers. Choose your pack size below.
+              Premium smooth peanut butter made from 100% roasted peanuts. No
+              palm oil, no added sugar, no fillers. Built for breakfast,
+              workouts, smoothies and everyday snacking.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              {benefits.map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full bg-[#fffaf0] px-4 py-3 text-xs font-black uppercase tracking-wide"
-                >
-                  ✓ {item}
-                </span>
-              ))}
+              {["100% roasted peanuts", "No palm oil", "No added sugar", "25.7g protein /100g"].map(
+                (item) => (
+                  <span
+                    key={item}
+                    className="rounded-full bg-[#fffaf0] px-4 py-3 text-xs font-black uppercase tracking-wide"
+                  >
+                    ✓ {item}
+                  </span>
+                )
+              )}
             </div>
 
             <div className="mt-8 rounded-[2rem] border border-[#173b2f]/10 bg-[#fffaf0] p-5 shadow-sm">
-              <div className="mb-5 flex items-end justify-between gap-4">
-                <div>
-                  <p className="text-sm font-black uppercase tracking-[0.22em] text-[#6f855f]">
-                    Choose your pack
-                  </p>
-                  <h2 className="mt-2 text-3xl font-black tracking-[-0.05em]">
-                    Better value when you stock up.
-                  </h2>
-                </div>
+              <div className="mb-5">
+                <p className="text-sm font-black uppercase tracking-[0.22em] text-[#6f855f]">
+                  Choose your pack
+                </p>
+                <h2 className="mt-2 text-3xl font-black tracking-[-0.05em]">
+                  Stock up and save.
+                </h2>
               </div>
 
               <div className="grid gap-3 sm:grid-cols-2">
@@ -130,7 +131,7 @@ export default function ProductPage() {
                     key={pack.id}
                     className="rounded-3xl border border-[#173b2f]/10 bg-[#fff7e8] p-4 transition hover:-translate-y-0.5 hover:shadow-md"
                   >
-                    <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-start justify-between gap-4">
                       <div>
                         <span className="rounded-full bg-[#6f855f] px-3 py-1.5 text-[10px] font-black uppercase tracking-wide text-white">
                           {pack.badge}
@@ -141,14 +142,14 @@ export default function ProductPage() {
                         </p>
                       </div>
 
-                      <p className="text-2xl font-black tracking-[-0.05em]">
-                        {pack.price}
-                      </p>
+                      <p className="text-2xl font-black">{pack.price}</p>
                     </div>
 
-                    <p className="mt-3 text-sm font-bold text-[#31574a]">
-                      {pack.note}
-                    </p>
+                    {pack.saving ? (
+                      <p className="mt-3 text-sm font-black text-[#6f855f]">
+                        {pack.saving}
+                      </p>
+                    ) : null}
 
                     <AddToCartButton
                       productId={pack.id}
@@ -157,17 +158,28 @@ export default function ProductPage() {
                   </article>
                 ))}
               </div>
+
+              <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                {trust.map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-2xl bg-[#fff7e8] px-4 py-3 text-sm font-black"
+                  >
+                    ✓ {item}
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="mt-5 rounded-[2rem] bg-[#173b2f] p-5 text-[#f8ead4]">
               <p className="text-sm font-black uppercase tracking-[0.22em] text-[#d9eb7c]">
-                Delivery offer
+                Delivery & returns
               </p>
               <p className="mt-2 text-xl font-black">
                 Free UK delivery over £25
               </p>
               <p className="mt-1 text-sm font-bold text-[#f8ead4]/80">
-                The 6 Pack qualifies automatically.
+                Standard delivery is £3.99. The 6 Pack qualifies automatically.
               </p>
             </div>
           </div>
@@ -180,7 +192,7 @@ export default function ProductPage() {
             <p className="mb-3 text-sm font-black uppercase tracking-[0.28em] text-[#6f855f]">
               Why FLEX
             </p>
-            <h2 className="text-4xl font-black tracking-[-0.05em] md:text-5xl">
+            <h2 className="max-w-4xl text-4xl font-black tracking-[-0.05em] md:text-5xl">
               Built for breakfast, workouts and everyday snacking.
             </h2>
           </div>
@@ -202,6 +214,52 @@ export default function ProductPage() {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#f6ead8] px-6 py-10 md:py-12">
+        <div className="mx-auto max-w-7xl rounded-[2rem] border border-[#173b2f]/10 bg-[#fffaf0] p-6 shadow-sm">
+          <p className="text-sm font-black uppercase tracking-[0.28em] text-[#6f855f]">
+            Frequently bought together
+          </p>
+          <div className="mt-5 grid gap-6 md:grid-cols-[1fr_auto_1fr_auto] md:items-center">
+            <div className="flex items-center gap-4 rounded-3xl bg-[#fff7e8] p-4">
+              <Image
+                src="/assets/products/natural-smooth-510g.png"
+                alt="FLEX Single Jar"
+                width={140}
+                height={140}
+                className="h-24 w-auto object-contain mix-blend-multiply"
+              />
+              <div>
+                <h3 className="text-xl font-black">Single Jar</h3>
+                <p className="text-sm font-bold text-[#31574a]">£4.99</p>
+              </div>
+            </div>
+
+            <span className="hidden text-3xl font-black md:block">+</span>
+
+            <div className="flex items-center gap-4 rounded-3xl bg-[#fff7e8] p-4">
+              <Image
+                src="/assets/products/natural-smooth-510g.png"
+                alt="FLEX 6 Pack"
+                width={140}
+                height={140}
+                className="h-24 w-auto object-contain mix-blend-multiply"
+              />
+              <div>
+                <h3 className="text-xl font-black">6 Pack</h3>
+                <p className="text-sm font-bold text-[#31574a]">£26.99</p>
+              </div>
+            </div>
+
+            <AddToCartButton
+              productId="natural-smooth-6-pack"
+              className="inline-flex h-12 items-center justify-center rounded-full bg-[#173b2f] px-6 text-sm font-black text-[#f8ead4]"
+            >
+              Add best value pack
+            </AddToCartButton>
           </div>
         </div>
       </section>
