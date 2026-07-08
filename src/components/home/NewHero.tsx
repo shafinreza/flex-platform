@@ -1,7 +1,10 @@
 import Image from "next/image";
 import Button from "@/components/ui/button";
+import { getSiteAsset } from "@/lib/site-assets";
 
-export default function NewHero() {
+export default async function NewHero() {
+  const heroImage = await getSiteAsset("hero_image");
+
   return (
     <section className="bg-[#f6ead8] px-6 py-10 md:py-14">
       <div className="mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-[0.95fr_1.05fr]">
@@ -43,12 +46,12 @@ export default function NewHero() {
 
         <div className="rounded-[2rem] border border-[#173b2f]/10 bg-[#fffaf0] px-8 py-8 shadow-sm md:px-12 md:py-10">
           <Image
-            src="/assets/products/natural-smooth-510g.png"
+            src={heroImage}
             alt="FLEX Natural Smooth Peanut Butter"
             width={760}
             height={760}
             priority
-            className="mx-auto h-auto max-h-[430px] w-auto object-contain"
+            className="mx-auto h-auto max-h-[430px] w-auto object-contain mix-blend-multiply"
           />
         </div>
       </div>

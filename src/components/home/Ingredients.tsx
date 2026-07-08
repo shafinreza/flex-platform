@@ -1,7 +1,10 @@
 import Image from "next/image";
 import SectionHeading from "@/components/ui/SectionHeading";
+import { getSiteAsset } from "@/lib/site-assets";
 
-export default function Ingredients() {
+export default async function Ingredients() {
+  const ingredientsImage = await getSiteAsset("ingredients_image");
+
   return (
     <section id="ingredients" className="bg-[#f6ead8] px-6 py-10 md:py-12">
       <div className="mx-auto grid max-w-7xl items-center gap-10 md:grid-cols-2">
@@ -19,8 +22,8 @@ export default function Ingredients() {
 
         <div className="rounded-[2rem] border border-[#173b2f]/10 bg-[#fffaf0] p-8">
           <Image
-            src="/assets/products/natural-smooth-510g.png"
-            alt="FLEX Natural Smooth Peanut Butter"
+            src={ingredientsImage}
+            alt="FLEX Natural Smooth Peanut Butter ingredients"
             width={520}
             height={520}
             className="mx-auto h-80 w-auto object-contain mix-blend-multiply"
