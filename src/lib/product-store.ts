@@ -1,6 +1,14 @@
 import { prisma } from "@/lib/prisma";
 import { catalog } from "@/data/products";
 
+export type StoreProductImage = {
+  id: string;
+  imageUrl: string;
+  altText: string;
+  sortOrder: number;
+  isPrimary: boolean;
+};
+
 export type StoreProduct = {
   id: string;
   name: string;
@@ -8,6 +16,7 @@ export type StoreProduct = {
   image: string;
   jarCount: number;
   active: boolean;
+  gallery: StoreProductImage[];
 };
 
 export async function syncStaticProductsToDatabase() {
@@ -33,18 +42,39 @@ export async function getStoreProducts(): Promise<StoreProduct[]> {
   const dbProducts = await prisma.products.findMany({
     where: { active: true },
     orderBy: { created_at: "asc" },
+    include: {
+      product_images: {
+        orderBy: [{ is_primary: "desc" }, { sort_order: "asc" }],
+      },
+    },
   });
 
   return catalog.map((fallback) => {
     const dbProduct = dbProducts.find((product) => product.slug === fallback.id);
 
+    const gallery =
+      dbProduct?.product_images.map((image) => ({
+        id: image.id,
+        imageUrl: image.image_url,
+        altText: image.alt_text ?? dbProduct.name,
+        sortOrder: image.sort_order,
+        isPrimary: image.is_primary,
+      })) ?? [];
+
+    const primaryImage =
+      gallery.find((image) => image.isPrimary)?.imageUrl ||
+      gallery[0]?.imageUrl ||
+      dbProduct?.image ||
+      fallback.image;
+
     return {
       id: fallback.id,
       name: dbProduct?.name ?? fallback.name,
       price: Number(dbProduct?.price ?? fallback.price),
-      image: dbProduct?.image ?? fallback.image,
+      image: primaryImage,
       jarCount: fallback.jarCount,
       active: dbProduct?.active ?? true,
+      gallery,
     };
   });
 }

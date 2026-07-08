@@ -4,6 +4,7 @@ import AddToCartButton from "@/components/cart/AddToCartButton";
 import NutritionTable from "@/components/product/NutritionTable";
 import ProductFAQ from "@/components/product/ProductFAQ";
 import ProductReviews from "@/components/product/ProductReviews";
+import { getStoreProductById } from "@/lib/product-store";
 
 export const metadata: Metadata = {
   title: "FLEX Natural Smooth Peanut Butter 510g",
@@ -53,7 +54,22 @@ const trust = [
   "No added sugar",
 ];
 
-export default function ProductPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ProductPage() {
+  const product = await getStoreProductById("natural-smooth-510g");
+  const gallery = product?.gallery?.length
+    ? product.gallery
+    : [
+        {
+          id: "fallback-main",
+          imageUrl: product?.image || "/assets/products/natural-smooth-510g.png",
+          altText: "FLEX Natural Smooth Peanut Butter",
+          sortOrder: 0,
+          isPrimary: true,
+        },
+      ];
+  const mainImage = gallery.find((image) => image.isPrimary) || gallery[0];
   return (
     <main className="bg-[#f6ead8] text-[#173b2f]">
       <section className="px-6 py-8 md:py-10">
@@ -61,8 +77,8 @@ export default function ProductPage() {
           <div className="lg:sticky lg:top-28 lg:self-start">
             <div className="rounded-[2rem] border border-[#173b2f]/10 bg-[#fffaf0] p-6 shadow-sm">
               <Image
-                src="/assets/products/natural-smooth-510g.png"
-                alt="FLEX Natural Smooth Peanut Butter"
+                src={mainImage.imageUrl}
+                alt={mainImage.altText}
                 width={900}
                 height={900}
                 priority
@@ -71,12 +87,18 @@ export default function ProductPage() {
             </div>
 
             <div className="mt-4 grid grid-cols-3 gap-3">
-              {["510g jar", "100% peanuts", "Smooth texture"].map((item) => (
+              {gallery.slice(0, 6).map((image, index) => (
                 <div
-                  key={item}
-                  className="rounded-2xl border border-[#173b2f]/10 bg-[#fff7e8] px-3 py-4 text-center text-xs font-black uppercase tracking-wide text-[#31574a]"
+                  key={image.id}
+                  className="grid h-28 place-items-center rounded-2xl border border-[#173b2f]/10 bg-[#fff7e8] p-3"
                 >
-                  {item}
+                  <Image
+                    src={image.imageUrl}
+                    alt={image.altText || `FLEX product image ${index + 1}`}
+                    width={160}
+                    height={160}
+                    className="max-h-20 w-auto object-contain mix-blend-multiply"
+                  />
                 </div>
               ))}
             </div>
