@@ -125,13 +125,13 @@ export default function AdminProductsPage() {
               </h2>
             </div>
 
-            <button
-              type="button"
+            <Link
+              href="/admin/products/settings"
               className="inline-flex items-center gap-2 rounded-full border border-[#173b2f]/10 bg-[#fff7e8] px-4 py-3 text-sm font-black text-[#173b2f]"
             >
               <Pencil size={15} />
-              Editing soon
-            </button>
+              Product settings
+            </Link>
           </div>
 
           <div className="grid gap-3">
