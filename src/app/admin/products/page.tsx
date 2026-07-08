@@ -131,6 +131,33 @@ export default async function AdminProductsPage() {
                 </label>
               </div>
 
+              <form
+                action="/api/admin/products/image"
+                method="post"
+                encType="multipart/form-data"
+                className="md:col-span-3 rounded-3xl bg-[#f6ead8] p-4"
+              >
+                <input type="hidden" name="slug" value={product.id} />
+                <label className="block">
+                  <span className="text-xs font-black uppercase tracking-wide text-[#6f855f]">
+                    Upload replacement image
+                  </span>
+                  <input
+                    type="file"
+                    name="file"
+                    accept="image/*"
+                    required
+                    className="mt-2 w-full rounded-2xl border border-[#173b2f]/10 bg-[#fffaf0] p-3 text-sm font-black"
+                  />
+                </label>
+                <button
+                  type="submit"
+                  className="mt-3 inline-flex h-11 items-center justify-center rounded-full bg-[#173b2f] px-5 text-sm font-black text-[#f8ead4]"
+                >
+                  Upload image for this product
+                </button>
+              </form>
+
               <div className="flex items-end">
                 <button
                   type="submit"
