@@ -1,33 +1,61 @@
 import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "@/components/cart/AddToCartButton";
+import { getStoreProducts } from "@/lib/product-store";
 
 const productPage = "/products/natural-smooth-510g";
 
-const products = [
-  {
-    id: "natural-smooth-510g",
+const productMeta = {
+  "natural-smooth-510g": {
     title: "Natural Smooth",
     subtitle: "Single 510g Jar",
     text: "100% roasted peanuts with smooth texture and rich roasted taste.",
-    price: "£4.99",
     badge: "Most Popular",
-    image: "/assets/products/natural-smooth-510g.png",
     bullets: ["No palm oil", "No added sugar", "High protein"],
   },
-  {
-    id: "natural-smooth-6-pack",
+  "natural-smooth-6-pack": {
     title: "Natural Smooth 6 Pack",
     subtitle: "6 × 510g Jars",
     text: "Best value bundle for families, oats, smoothies and everyday snacking.",
-    price: "£26.99",
     badge: "Best Value",
-    image: "/assets/products/natural-smooth-510g.png",
     bullets: ["Free UK delivery", "Best value", "6 jars included"],
   },
-];
+};
 
-export default function HomeProductRange() {
+function formatPrice(price: number) {
+  return new Intl.NumberFormat("en-GB", {
+    style: "currency",
+    currency: "GBP",
+  }).format(price);
+}
+
+export default async function HomeProductRange() {
+  const storeProducts = await getStoreProducts();
+
+  const products = ["natural-smooth-510g", "natural-smooth-6-pack"]
+    .map((id) => {
+      const product = storeProducts.find((item) => item.id === id);
+      const meta = productMeta[id as keyof typeof productMeta];
+
+      if (!product || !meta) return null;
+
+      return {
+        ...product,
+        ...meta,
+      };
+    })
+    .filter(Boolean) as Array<{
+      id: string;
+      name: string;
+      price: number;
+      image: string;
+      title: string;
+      subtitle: string;
+      text: string;
+      badge: string;
+      bullets: string[];
+    }>;
+
   return (
     <section id="products" className="bg-[#fffaf0] px-6 py-8 md:py-10">
       <div className="mx-auto max-w-7xl">
@@ -90,7 +118,7 @@ export default function HomeProductRange() {
                 </div>
 
                 <p className="mt-5 text-3xl font-black tracking-[-0.05em] text-[#173b2f]">
-                  {product.price}
+                  {formatPrice(product.price)}
                 </p>
 
                 <div className="mt-4 flex flex-col gap-3 sm:flex-row">

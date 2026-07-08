@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import NewHero from "@/components/home/NewHero";
 import HomeProductRange from "@/components/home/HomeProductRange";
 import Benefits from "@/components/home/Benefits";
