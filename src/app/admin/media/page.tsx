@@ -2,14 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ImageIcon, Upload } from "lucide-react";
 import { listMediaFiles } from "@/lib/media-store";
-import { getSiteAsset } from "@/lib/site-assets";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminMediaPage() {
   const files = await listMediaFiles();
-  const heroImage = await getSiteAsset("hero_image");
-  const ingredientsImage = await getSiteAsset("ingredients_image");
 
   return (
     <main className="px-5 py-6 lg:px-8 lg:py-8">
@@ -34,53 +31,6 @@ export default async function AdminMediaPage() {
           Upload and manage product photography for homepage, shop, product page
           and cart.
         </p>
-      </section>
-
-
-      <section className="mt-6 rounded-[2rem] border border-[#173b2f]/10 bg-[#fffaf0] p-6 shadow-sm">
-        <div className="mb-5">
-          <p className="text-sm font-black uppercase tracking-[0.22em] text-[#6f855f]">
-            Homepage images
-          </p>
-          <h2 className="mt-2 text-3xl font-black tracking-[-0.05em]">
-            Choose hero and ingredients images
-          </h2>
-          <p className="mt-2 text-sm font-bold text-[#31574a]">
-            Upload images above, then assign them to homepage sections below.
-          </p>
-        </div>
-
-        <div className="grid gap-5 md:grid-cols-2">
-          <div className="rounded-3xl bg-[#fff7e8] p-5">
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#6f855f]">
-              Current hero image
-            </p>
-            <div className="mt-4 grid h-56 place-items-center rounded-2xl bg-[#f6ead8] p-4">
-              <Image
-                src={heroImage}
-                alt="Current homepage hero"
-                width={320}
-                height={320}
-                className="max-h-48 w-auto object-contain mix-blend-multiply"
-              />
-            </div>
-          </div>
-
-          <div className="rounded-3xl bg-[#fff7e8] p-5">
-            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#6f855f]">
-              Current ingredients image
-            </p>
-            <div className="mt-4 grid h-56 place-items-center rounded-2xl bg-[#f6ead8] p-4">
-              <Image
-                src={ingredientsImage}
-                alt="Current ingredients section"
-                width={320}
-                height={320}
-                className="max-h-48 w-auto object-contain mix-blend-multiply"
-              />
-            </div>
-          </div>
-        </div>
       </section>
 
       <section className="mt-6 rounded-[2rem] border border-[#173b2f]/10 bg-[#fffaf0] p-6 shadow-sm">
@@ -181,30 +131,6 @@ export default async function AdminMediaPage() {
                   value={file.url}
                   className="mt-3 w-full rounded-2xl border border-[#173b2f]/10 bg-[#fffaf0] px-3 py-2 text-xs font-bold text-[#31574a]"
                 />
-
-                <div className="mt-3 grid gap-2">
-                  <form action="/api/admin/site-assets/update" method="post">
-                    <input type="hidden" name="key" value="hero_image" />
-                    <input type="hidden" name="value" value={file.url} />
-                    <button
-                      type="submit"
-                      className="h-10 w-full rounded-full bg-[#173b2f] text-xs font-black text-[#f8ead4]"
-                    >
-                      Set as hero image
-                    </button>
-                  </form>
-
-                  <form action="/api/admin/site-assets/update" method="post">
-                    <input type="hidden" name="key" value="ingredients_image" />
-                    <input type="hidden" name="value" value={file.url} />
-                    <button
-                      type="submit"
-                      className="h-10 w-full rounded-full border border-[#173b2f]/10 bg-[#fffaf0] text-xs font-black text-[#173b2f]"
-                    >
-                      Set as ingredients image
-                    </button>
-                  </form>
-                </div>
               </article>
             ))}
           </div>
