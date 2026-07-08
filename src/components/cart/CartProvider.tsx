@@ -17,6 +17,14 @@ export type DetailedCartItem = {
   quantity: number;
 };
 
+type StoreProduct = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  jarCount: number;
+};
+
 type CartContextType = {
   items: CartItem[];
   detailedItems: DetailedCartItem[];
@@ -37,6 +45,14 @@ const JAR_PACKS = [
   { jars: 3, id: "natural-smooth-3-pack" },
   { jars: 6, id: "natural-smooth-6-pack" },
 ];
+
+const fallbackCatalog: StoreProduct[] = catalog.map((item) => ({
+  id: item.id,
+  name: item.name,
+  price: item.price,
+  image: item.image,
+  jarCount: item.jarCount,
+}));
 
 const CartContext = createContext<CartContextType | null>(null);
 
@@ -65,10 +81,34 @@ function isFlexJarProduct(id: string) {
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>(getInitialCart);
+  const [products, setProducts] = useState<StoreProduct[]>(fallbackCatalog);
 
   useEffect(() => {
     window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
   }, [items]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadProducts() {
+      try {
+        const response = await fetch("/api/products", { cache: "no-store" });
+        const data = await response.json();
+
+        if (isMounted && Array.isArray(data.products)) {
+          setProducts(data.products);
+        }
+      } catch {
+        setProducts(fallbackCatalog);
+      }
+    }
+
+    loadProducts();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   function addItem(id: string) {
     setItems((current) => {
@@ -105,16 +145,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       const withoutCurrentFlexPacks = current.filter(
         (item) => !isFlexJarProduct(item.id)
       );
-
-      const existingPack = withoutCurrentFlexPacks.find(
-        (item) => item.id === pack.id
-      );
-
-      if (existingPack) {
-        return withoutCurrentFlexPacks.map((item) =>
-          item.id === pack.id ? { ...item, quantity: 1 } : item
-        );
-      }
 
       return [...withoutCurrentFlexPacks, { id: pack.id, quantity: 1 }];
     });
@@ -164,7 +194,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     () =>
       items
         .map((item) => {
-          const product = catalog.find((catalogItem) => catalogItem.id === item.id);
+          const product = products.find((catalogItem) => catalogItem.id === item.id);
           if (!product) return null;
 
           return {
@@ -173,7 +203,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           };
         })
         .filter(Boolean) as DetailedCartItem[],
-    [items]
+    [items, products]
   );
 
   const subtotal = useMemo(

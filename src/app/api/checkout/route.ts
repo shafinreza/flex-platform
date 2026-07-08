@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { FREE_SHIPPING_THRESHOLD, catalog } from "@/data/products";
+import { FREE_SHIPPING_THRESHOLD } from "@/data/products";
+import { getStoreProducts } from "@/lib/product-store";
 
 export const runtime = "nodejs";
 
@@ -15,9 +16,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No items in cart" }, { status: 400 });
     }
 
+    const products = await getStoreProducts();
+
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map(
       (item) => {
-        const product = catalog.find((catalogItem) => catalogItem.id === item.id);
+        const product = products.find((catalogItem) => catalogItem.id === item.id);
 
         if (!product) {
           throw new Error(`Invalid product: ${item.id}`);
@@ -38,7 +41,7 @@ export async function POST(req: Request) {
     );
 
     const subtotal = items.reduce((total, item) => {
-      const product = catalog.find((catalogItem) => catalogItem.id === item.id);
+      const product = products.find((catalogItem) => catalogItem.id === item.id);
       if (!product) return total;
       return total + product.price * item.quantity;
     }, 0);
