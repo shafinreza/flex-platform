@@ -4,13 +4,13 @@ import AdminLogoutButton from "@/components/admin/AdminLogoutButton";
 
 export default function AdminHeader() {
   return (
-    <header className="sticky top-0 z-20 border-b border-black/10 bg-[#f4f6f3]/90 px-6 py-4 backdrop-blur">
+    <header className="sticky top-0 z-20 border-b border-[#173b2f]/10 bg-[#f6ead8]/90 px-5 py-4 backdrop-blur">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#6f855f]">
+          <p className="text-xs font-black uppercase tracking-[0.24em] text-[#6f855f]">
             SharkX Ltd
           </p>
-          <h1 className="text-xl font-black tracking-[-0.03em] text-[#0f1720]">
+          <h1 className="text-xl font-black tracking-[-0.04em] text-[#173b2f]">
             FLEX Control Centre
           </h1>
         </div>
@@ -19,7 +19,7 @@ export default function AdminHeader() {
           <Link
             href="https://www.eatflex.uk"
             target="_blank"
-            className="hidden items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-black text-[#0f1720] transition hover:bg-[#eef1ec] md:flex"
+            className="hidden items-center gap-2 rounded-full border border-[#173b2f]/10 bg-[#fffaf0] px-4 py-2 text-sm font-black text-[#173b2f] transition hover:bg-white md:flex"
           >
             View site
             <ExternalLink size={14} />
@@ -27,7 +27,7 @@ export default function AdminHeader() {
 
           <button
             type="button"
-            className="grid h-10 w-10 place-items-center rounded-full border border-black/10 bg-white text-[#0f1720]"
+            className="grid h-10 w-10 place-items-center rounded-full border border-[#173b2f]/10 bg-[#fffaf0] text-[#173b2f]"
             aria-label="Notifications"
           >
             <Bell size={17} />
