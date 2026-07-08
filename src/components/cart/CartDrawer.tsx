@@ -64,7 +64,7 @@ export default function CartDrawer() {
         ) : null}
       </SheetTrigger>
 
-      <SheetContent className="flex w-full flex-col bg-[#f6ead8] p-0 text-[#173b2f] sm:max-w-lg">
+      <SheetContent className="flex h-dvh w-full flex-col bg-[#f6ead8] p-0 text-[#173b2f] sm:max-w-lg">
         <SheetHeader className="border-b border-[#173b2f]/10 p-6 text-left">
           <SheetTitle className="text-2xl font-black text-[#173b2f]">
             Your cart {cartCount > 0 ? `(${cartCount})` : ""}
@@ -109,24 +109,24 @@ export default function CartDrawer() {
               ) : null}
             </div>
 
-            <div className="flex-1 space-y-4 overflow-y-auto p-6">
+            <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4 sm:p-6">
               {detailedItems.map((item) => (
                 <div
                   key={item.id}
-                  className="flex gap-4 rounded-3xl bg-[#fff8ed] p-4 shadow-sm ring-1 ring-[#173b2f]/10"
+                  className="flex gap-3 rounded-3xl bg-[#fff8ed] p-3 shadow-sm ring-1 ring-[#173b2f]/10 sm:gap-4 sm:p-4"
                 >
-                  <div className="grid h-24 w-24 shrink-0 place-items-center rounded-2xl bg-[#f6ead8]">
+                  <div className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-[#f6ead8] sm:h-24 sm:w-24">
                     <Image
                       src={item.image}
                       alt={item.name}
                       width={90}
                       height={90}
-                      className="h-20 w-auto object-contain"
+                      className="h-16 w-auto object-contain sm:h-20"
                     />
                   </div>
 
                   <div className="min-w-0 flex-1">
-                    <h3 className="text-sm font-black leading-5">{item.name}</h3>
+                    <h3 className="text-sm font-black leading-5 sm:text-base">{item.name}</h3>
                     <p className="mt-1 text-sm font-black">
                       £{item.price.toFixed(2)}
                     </p>
@@ -186,7 +186,7 @@ export default function CartDrawer() {
               ) : null}
             </div>
 
-            <div className="border-t border-[#173b2f]/10 bg-[#fff8ed] p-6">
+            <div className="shrink-0 border-t border-[#173b2f]/10 bg-[#fff8ed] p-4 sm:p-6">
               <div className="space-y-3 text-sm font-bold">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
