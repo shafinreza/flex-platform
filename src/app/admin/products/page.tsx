@@ -1,45 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { revalidatePath } from "next/cache";
 import { ArrowRight, ImageIcon, Package, Pencil, PoundSterling } from "lucide-react";
-import { prisma } from "@/lib/prisma";
 import { featuredVariant } from "@/data/products";
 import { getStoreProducts, syncStaticProductsToDatabase } from "@/lib/product-store";
 
 export const dynamic = "force-dynamic";
-
-async function updateProduct(formData: FormData) {
-  "use server";
-
-  const slug = String(formData.get("slug") || "");
-  const price = Number(formData.get("price"));
-  const image = String(formData.get("image") || "");
-
-  if (!slug || Number.isNaN(price) || price <= 0) {
-    throw new Error("Invalid product update");
-  }
-
-  await prisma.products.upsert({
-    where: { slug },
-    update: {
-      price,
-      image,
-    },
-    create: {
-      slug,
-      name: slug,
-      description: "FLEX product",
-      price,
-      image,
-      active: true,
-    },
-  });
-
-  revalidatePath("/");
-  revalidatePath("/shop");
-  revalidatePath("/products/natural-smooth-510g");
-  revalidatePath("/admin/products");
-}
 
 export default async function AdminProductsPage() {
   await syncStaticProductsToDatabase();
@@ -109,10 +74,12 @@ export default async function AdminProductsPage() {
           {products.map((product) => (
             <form
               key={product.id}
-              action={updateProduct}
+              action="/api/admin/products/update"
+              method="post"
               className="grid gap-5 rounded-3xl border border-[#173b2f]/10 bg-[#fff7e8] p-5 md:grid-cols-[160px_1fr_auto]"
             >
               <input type="hidden" name="slug" value={product.id} />
+              <input type="hidden" name="name" value={product.name} />
 
               <div className="grid h-40 place-items-center rounded-2xl bg-[#f6ead8] p-4">
                 <Image
