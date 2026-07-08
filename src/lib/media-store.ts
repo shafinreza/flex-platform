@@ -16,7 +16,33 @@ export function getSupabaseAdmin() {
   });
 }
 
+export async function ensureMediaBucket() {
+  const supabase = getSupabaseAdmin();
+
+  const { data: buckets, error: listError } = await supabase.storage.listBuckets();
+
+  if (listError) {
+    throw new Error(listError.message);
+  }
+
+  const exists = buckets?.some((bucket) => bucket.name === BUCKET);
+
+  if (!exists) {
+    const { error } = await supabase.storage.createBucket(BUCKET, {
+      public: true,
+      fileSizeLimit: 10 * 1024 * 1024,
+      allowedMimeTypes: ["image/png", "image/jpeg", "image/webp", "image/gif"],
+    });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+  }
+}
+
 export async function uploadMediaFile(file: File) {
+  await ensureMediaBucket();
+
   const supabase = getSupabaseAdmin();
 
   const extension = file.name.split(".").pop() || "png";
@@ -30,7 +56,7 @@ export async function uploadMediaFile(file: File) {
   const buffer = Buffer.from(await file.arrayBuffer());
 
   const { error } = await supabase.storage.from(BUCKET).upload(filePath, buffer, {
-    contentType: file.type,
+    contentType: file.type || "image/png",
     upsert: true,
   });
 
