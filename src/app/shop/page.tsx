@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import AddToCartButton from "@/components/cart/AddToCartButton";
-import { FREE_SHIPPING_THRESHOLD, storefrontProducts } from "@/data/products";
+import { FREE_SHIPPING_THRESHOLD } from "@/data/products";
+import { getStoreProducts } from "@/lib/product-store";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Shop FLEX Peanut Butter | Natural Smooth Bundles",
@@ -22,8 +25,11 @@ function getCardMeta(productId: string) {
     return {
       label: "Most Popular",
       subtitle: "Single 510g Jar",
+      title: "FLEX Natural Smooth",
+      description: "Single jar. 100% roasted peanuts, no palm oil and no added sugar.",
       bullets: ["Try FLEX", "No palm oil", "No added sugar"],
       saving: null,
+      compareAt: null,
     };
   }
 
@@ -31,8 +37,11 @@ function getCardMeta(productId: string) {
     return {
       label: "Save 49p",
       subtitle: "2 × 510g Jars",
+      title: "Natural Smooth 2 Pack",
+      description: "Two jars for regular breakfasts, smoothies and snacking.",
       bullets: ["Regular use", "Smooth texture", "Better value"],
-      saving: "Save £0.49",
+      saving: "Bundle saving",
+      compareAt: 9.98,
     };
   }
 
@@ -40,20 +49,28 @@ function getCardMeta(productId: string) {
     return {
       label: "Popular",
       subtitle: "3 × 510g Jars",
+      title: "Natural Smooth 3 Pack",
+      description: "Three jars for family use, oats, shakes and recipes.",
       bullets: ["Family friendly", "Oats & smoothies", "Save vs singles"],
-      saving: "Save £0.98",
+      saving: "Bundle saving",
+      compareAt: 14.97,
     };
   }
 
   return {
     label: "Best Value",
     subtitle: "6 × 510g Jars",
+    title: "Natural Smooth 6 Pack",
+    description: "Best value bundle for families, gym bags and meal prep.",
     bullets: ["Free UK delivery", "Best value", "Stock up"],
-    saving: "Save £2.95",
+    saving: "Best value",
+    compareAt: 29.94,
   };
 }
 
-export default function ShopPage() {
+export default async function ShopPage() {
+  const products = await getStoreProducts();
+
   return (
     <main className="bg-[#f6ead8] text-[#173b2f]">
       <section className="px-6 py-10 md:py-14">
@@ -124,7 +141,7 @@ export default function ShopPage() {
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            {storefrontProducts.map((product) => {
+            {products.map((product) => {
               const meta = getCardMeta(product.id);
 
               return (
@@ -142,7 +159,7 @@ export default function ShopPage() {
                   </div>
 
                   <Link
-                    href={product.href}
+                    href="/products/natural-smooth-510g"
                     className="mt-5 grid min-h-[230px] place-items-center rounded-[1.6rem] bg-[#f6ead8] p-5"
                   >
                     <Image
@@ -160,13 +177,11 @@ export default function ShopPage() {
                     </p>
 
                     <h2 className="mt-2 text-2xl font-black leading-tight tracking-[-0.05em]">
-                      {product.id === "natural-smooth-510g"
-                        ? "FLEX Natural Smooth"
-                        : product.name.replace("FLEX ", "")}
+                      {meta.title}
                     </h2>
 
                     <p className="mt-3 text-sm font-bold leading-relaxed text-[#31574a]">
-                      {product.subtitle}
+                      {meta.description}
                     </p>
 
                     <div className="mt-4 flex flex-wrap gap-2">
@@ -181,16 +196,14 @@ export default function ShopPage() {
                     </div>
 
                     <div className="mt-auto pt-5">
-                      {product.compareAtPrice ? (
+                      {meta.compareAt ? (
                         <div className="mb-3 flex items-center gap-3">
                           <span className="text-sm font-black text-[#31574a] line-through">
-                            {formatPrice(product.compareAtPrice)}
+                            {formatPrice(meta.compareAt)}
                           </span>
-                          {meta.saving ? (
-                            <span className="rounded-full bg-[#e5b15a] px-3 py-1 text-xs font-black">
-                              {meta.saving}
-                            </span>
-                          ) : null}
+                          <span className="rounded-full bg-[#e5b15a] px-3 py-1 text-xs font-black">
+                            {meta.saving}
+                          </span>
                         </div>
                       ) : null}
 
@@ -200,7 +213,7 @@ export default function ShopPage() {
                       />
 
                       <Link
-                        href={product.href}
+                        href="/products/natural-smooth-510g"
                         className="mt-3 inline-flex h-12 w-full items-center justify-center rounded-full border border-[#173b2f]/15 px-6 text-sm font-black text-[#173b2f] transition hover:bg-white"
                       >
                         View details
