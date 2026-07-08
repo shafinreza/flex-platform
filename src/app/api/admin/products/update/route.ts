@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   const isAuthed = cookieStore.get("flex_admin")?.value === "true";
 
   if (!isAuthed) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL("/login", req.url), 303);
   }
 
   const formData = await req.formData();
@@ -22,7 +22,7 @@ export async function POST(req: Request) {
   const image = String(formData.get("image") || "");
 
   if (!slug || Number.isNaN(price) || price <= 0) {
-    return NextResponse.redirect(new URL("/admin/products?error=invalid", req.url));
+    return NextResponse.redirect(new URL("/admin/products?error=invalid", req.url), 303);
   }
 
   await prisma.products.upsert({
@@ -48,5 +48,5 @@ export async function POST(req: Request) {
   revalidatePath("/products/natural-smooth-510g");
   revalidatePath("/admin/products");
 
-  return NextResponse.redirect(new URL("/admin/products?saved=1", req.url));
+  return NextResponse.redirect(new URL("/admin/products?saved=1", req.url), 303);
 }

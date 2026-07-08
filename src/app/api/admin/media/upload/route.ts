@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   const isAuthed = cookieStore.get("flex_admin")?.value === "true";
 
   if (!isAuthed) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL("/login", req.url), 303);
   }
 
   try {
@@ -18,14 +18,14 @@ export async function POST(req: Request) {
     const file = formData.get("file");
 
     if (!(file instanceof File)) {
-      return NextResponse.redirect(new URL("/admin/media", req.url));
+      return NextResponse.redirect(new URL("/admin/media", req.url), 303);
     }
 
     await uploadMediaFile(file);
 
-    return NextResponse.redirect(new URL("/admin/media", req.url));
+    return NextResponse.redirect(new URL("/admin/media", req.url), 303);
   } catch (error) {
     console.error("Media upload failed:", error);
-    return NextResponse.redirect(new URL("/admin/media", req.url));
+    return NextResponse.redirect(new URL("/admin/media", req.url), 303);
   }
 }
