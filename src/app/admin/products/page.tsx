@@ -3,7 +3,7 @@ import Link from "next/link";
 import { revalidatePath } from "next/cache";
 import { ArrowRight, ImageIcon, Package, Pencil, PoundSterling } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { bundles, catalog, featuredVariant } from "@/data/products";
+import { featuredVariant } from "@/data/products";
 import { getStoreProducts, syncStaticProductsToDatabase } from "@/lib/product-store";
 
 export const dynamic = "force-dynamic";
