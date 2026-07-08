@@ -94,29 +94,28 @@ export default function CartDrawer() {
           </div>
         ) : (
           <>
-            <div className="shrink-0 border-b border-[#173b2f]/10 px-5 py-4 sm:p-6">
-              <div className="flex items-center gap-3 text-sm font-black leading-tight">
-                <Truck className="h-5 w-5 shrink-0" />
-                {remainingForFreeShipping > 0
-                  ? `£${remainingForFreeShipping.toFixed(2)} away from free UK delivery`
-                  : "You unlocked free UK delivery"}
-              </div>
-
-              <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-[#fff8ed]">
-                <div
-                  className="h-full rounded-full bg-[#e5b15a]"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-
-              {savings > 0 ? (
-                <p className="mt-3 rounded-2xl bg-[#fff8ed] px-4 py-3 text-sm font-black leading-tight text-[#173b2f]">
-                  You saved £{savings.toFixed(2)} with bundle pricing.
-                </p>
-              ) : null}
-            </div>
-
             <div className="min-h-0 flex-1 space-y-3 overflow-y-auto px-5 py-4 pb-6">
+              <div className="rounded-3xl bg-[#fff8ed] p-4 shadow-sm ring-1 ring-[#173b2f]/10">
+                <div className="flex items-center gap-3 text-sm font-black leading-tight">
+                  <Truck className="h-5 w-5 shrink-0" />
+                  {remainingForFreeShipping > 0
+                    ? `£${remainingForFreeShipping.toFixed(2)} away from free UK delivery`
+                    : "You unlocked free UK delivery"}
+                </div>
+
+                <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-[#f6ead8]">
+                  <div
+                    className="h-full rounded-full bg-[#e5b15a]"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+
+                {savings > 0 ? (
+                  <p className="mt-3 rounded-2xl bg-[#f6ead8] px-4 py-3 text-sm font-black leading-tight text-[#173b2f]">
+                    You saved £{savings.toFixed(2)} with bundle pricing.
+                  </p>
+                ) : null}
+              </div>
               {detailedItems.map((item) => (
                 <div
                   key={item.id}
