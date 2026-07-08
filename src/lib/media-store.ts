@@ -18,12 +18,9 @@ export function getSupabaseAdmin() {
 
 export async function ensureMediaBucket() {
   const supabase = getSupabaseAdmin();
-
   const { data: buckets, error: listError } = await supabase.storage.listBuckets();
 
-  if (listError) {
-    throw new Error(listError.message);
-  }
+  if (listError) throw new Error(listError.message);
 
   const exists = buckets?.some((bucket) => bucket.name === BUCKET);
 
@@ -34,9 +31,7 @@ export async function ensureMediaBucket() {
       allowedMimeTypes: ["image/png", "image/jpeg", "image/webp", "image/gif"],
     });
 
-    if (error) {
-      throw new Error(error.message);
-    }
+    if (error) throw new Error(error.message);
   }
 }
 
@@ -44,7 +39,6 @@ export async function uploadMediaFile(file: File) {
   await ensureMediaBucket();
 
   const supabase = getSupabaseAdmin();
-
   const extension = file.name.split(".").pop() || "png";
   const safeName = file.name
     .replace(/\.[^/.]+$/, "")
@@ -60,11 +54,39 @@ export async function uploadMediaFile(file: File) {
     upsert: true,
   });
 
-  if (error) {
-    throw new Error(error.message);
-  }
+  if (error) throw new Error(error.message);
 
   const { data } = supabase.storage.from(BUCKET).getPublicUrl(filePath);
-
   return data.publicUrl;
+}
+
+export async function listMediaFiles() {
+  await ensureMediaBucket();
+
+  const supabase = getSupabaseAdmin();
+
+  const { data, error } = await supabase.storage.from(BUCKET).list("products", {
+    limit: 100,
+    sortBy: {
+      column: "created_at",
+      order: "desc",
+    },
+  });
+
+  if (error) throw new Error(error.message);
+
+  return (data || [])
+    .filter((file) => file.name)
+    .map((file) => {
+      const path = `products/${file.name}`;
+      const { data: publicUrl } = supabase.storage.from(BUCKET).getPublicUrl(path);
+
+      return {
+        name: file.name,
+        path,
+        url: publicUrl.publicUrl,
+        createdAt: file.created_at,
+        size: file.metadata?.size,
+      };
+    });
 }
