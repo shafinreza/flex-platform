@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { catalog } from "@/data/products";
 
@@ -36,9 +37,7 @@ export async function syncStaticProductsToDatabase() {
   }
 }
 
-export async function getStoreProducts(): Promise<StoreProduct[]> {
-  await syncStaticProductsToDatabase();
-
+async function getStoreProductsFromDatabase(): Promise<StoreProduct[]> {
   const dbProducts = await prisma.products.findMany({
     where: { active: true },
     orderBy: { created_at: "asc" },
@@ -77,6 +76,19 @@ export async function getStoreProducts(): Promise<StoreProduct[]> {
       gallery,
     };
   });
+}
+
+export const getStoreProducts = unstable_cache(
+  getStoreProductsFromDatabase,
+  ["store-products"],
+  {
+    tags: ["store-products"],
+    revalidate: 300,
+  }
+);
+
+export async function getFreshStoreProducts() {
+  return getStoreProductsFromDatabase();
 }
 
 export async function getStoreProductById(id: string) {

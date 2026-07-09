@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { FREE_SHIPPING_THRESHOLD } from "@/data/products";
-import { getStoreProducts } from "@/lib/product-store";
+import { getFreshStoreProducts } from "@/lib/product-store";
 
 export const runtime = "nodejs";
 
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "No items in cart" }, { status: 400 });
     }
 
-    const products = await getStoreProducts();
+    const products = await getFreshStoreProducts();
 
     const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map(
       (item) => {

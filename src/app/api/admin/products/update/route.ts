@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { prisma } from "@/lib/prisma";
 
 export const runtime = "nodejs";
@@ -43,6 +43,7 @@ export async function POST(req: Request) {
     },
   });
 
+  revalidateTag("store-products");
   revalidatePath("/");
   revalidatePath("/shop");
   revalidatePath("/products/natural-smooth-510g");

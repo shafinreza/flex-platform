@@ -92,7 +92,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
     async function loadProducts() {
       try {
-        const response = await fetch("/api/products", { cache: "no-store" });
+        const response = await fetch("/api/products");
         const data = await response.json();
 
         if (isMounted && Array.isArray(data.products)) {
