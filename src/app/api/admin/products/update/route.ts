@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     },
   });
 
-  revalidateTag("store-products");
+  revalidateTag("store-products", "max");
   revalidatePath("/");
   revalidatePath("/shop");
   revalidatePath("/products/natural-smooth-510g");

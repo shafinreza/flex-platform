@@ -45,7 +45,7 @@ export async function POST(req: Request) {
     data: { image: image.image_url },
   });
 
-  revalidateTag("store-products");
+  revalidateTag("store-products", "max");
   revalidatePath("/");
   revalidatePath("/shop");
   revalidatePath("/products/natural-smooth-510g");
