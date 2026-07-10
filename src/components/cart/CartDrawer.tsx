@@ -12,7 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { FREE_SHIPPING_THRESHOLD, featuredBundle } from "@/data/products";
-import { STANDARD_SHIPPING_PRICE } from "@/data/shipping";
+import { FREE_SHIPPING_JAR_THRESHOLD, STANDARD_SHIPPING_PRICE } from "@/data/shipping";
 import { useCart } from "@/components/cart/CartProvider";
 import { trackCheckoutStarted } from "@/lib/analytics";
 
@@ -43,17 +43,22 @@ export default function CartDrawer() {
     checkout,
   } = useCart();
 
-  const delivery =
-    subtotal >= FREE_SHIPPING_THRESHOLD || subtotal === 0
-      ? 0
-      : STANDARD_SHIPPING_PRICE;
+  const cartCount = items.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
-  const total = subtotal + delivery;
-  const cartCount = items.reduce((total, item) => total + item.quantity, 0);
   const jarCount = detailedItems.reduce(
     (total, item) => total + item.jarCount * item.quantity,
     0
   );
+
+  const delivery =
+    jarCount >= FREE_SHIPPING_JAR_THRESHOLD || subtotal === 0
+      ? 0
+      : STANDARD_SHIPPING_PRICE;
+
+  const total = subtotal + delivery;
   const singleJarTotal = jarCount * 4.99;
   const savings = Math.max(0, singleJarTotal - subtotal);
   const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal);
