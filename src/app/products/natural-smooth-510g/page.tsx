@@ -230,7 +230,7 @@ export default async function ProductPage() {
                 Free UK delivery over £25
               </p>
               <p className="mt-1 text-sm font-bold text-[#f8ead4]/80">
-                Standard UK delivery is £1.99. Six or more jars qualify for
+                Standard UK delivery is £2.99. Six or more jars qualify for
                 free standard delivery. Express options are available at checkout.
               </p>
             </div>

@@ -1,2 +1,2 @@
-export const STANDARD_SHIPPING_PRICE = 1.99;
+export const STANDARD_SHIPPING_PRICE = 2.99;
 export const FREE_SHIPPING_JAR_THRESHOLD = 6;

@@ -54,7 +54,7 @@ export default function TermsPage() {
         <h2 className="text-2xl font-black text-[#173b2f]">Delivery</h2>
         <p className="mt-3">
           Delivery options and charges are displayed during checkout. Standard
-          UK delivery is currently £1.99. Express delivery may be available for
+          UK delivery is currently £2.99. Express delivery may be available for
           an additional charge. Orders containing six or more jars qualify for
           free standard UK delivery.
         </p>
