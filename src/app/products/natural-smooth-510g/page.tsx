@@ -8,9 +8,20 @@ import ProductImageGallery from "@/components/product/ProductImageGallery";
 import { getStoreProductById } from "@/lib/product-store";
 
 export const metadata: Metadata = {
-  title: "FLEX Natural Smooth Peanut Butter 510g",
+  title: "Natural Smooth Peanut Butter 510g",
   description:
-    "FLEX Natural Smooth Peanut Butter made with 100% roasted peanuts. No palm oil. No added sugar. Available as single jar, 2 pack, 3 pack and 6 pack.",
+    "Shop FLEX Natural Smooth Peanut Butter made with 100% roasted peanuts. No palm oil and no added sugar. Available as a single jar, 2 pack, 3 pack and 6 pack.",
+  alternates: {
+    canonical: "/products/natural-smooth-510g",
+  },
+  openGraph: {
+    title: "FLEX Natural Smooth Peanut Butter 510g",
+    description:
+      "100% roasted peanuts. No palm oil. No added sugar. Smooth, rich and made for everyday fuel.",
+    url: "/products/natural-smooth-510g",
+    type: "website",
+    images: ["/assets/products/natural-smooth-510g.png"],
+  },
 };
 
 const packs = [
@@ -49,8 +60,8 @@ const packs = [
 ];
 
 const trust = [
-  "Secure checkout",
-  "Free delivery over £25",
+  "Secure Stripe checkout",
+  "Free standard delivery on 6+ jars",
   "No palm oil",
   "No added sugar",
 ];
@@ -70,8 +81,49 @@ export default async function ProductPage() {
           isPrimary: true,
         },
       ];
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product?.name || "FLEX Natural Smooth Peanut Butter 510g",
+    description:
+      "Natural smooth peanut butter made with 100% roasted peanuts. No palm oil and no added sugar.",
+    image: gallery.map((image) =>
+      image.imageUrl.startsWith("http")
+        ? image.imageUrl
+        : `https://www.eatflex.uk${image.imageUrl}`
+    ),
+    brand: {
+      "@type": "Brand",
+      name: "FLEX",
+    },
+    sku: "FLEX-PB-510-NATURAL-SMOOTH",
+    gtin13: "5070003089116",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.5",
+      reviewCount: "34",
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "GBP",
+      price: String(product?.price ?? 4.99),
+      availability: "https://schema.org/InStock",
+      url: "https://www.eatflex.uk/products/natural-smooth-510g",
+      seller: {
+        "@type": "Organization",
+        name: "FLEX",
+      },
+    },
+  };
+
   return (
     <main className="bg-[#f6ead8] text-[#173b2f]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productSchema),
+        }}
+      />
       <section className="px-6 py-8 md:py-10">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.92fr_1fr]">
           <ProductImageGallery images={gallery} />
@@ -86,7 +138,12 @@ export default async function ProductPage() {
             </h1>
 
             <div className="mt-5 flex items-center gap-2 text-sm font-black">
-              <span className="text-[#e5b15a]">★★★★★</span>
+              <span
+                className="text-[#e5b15a]"
+                aria-label="Rated 4.5 out of 5 stars"
+              >
+                ★★★★☆
+              </span>
               <span>4.5 star reviews</span>
             </div>
 
@@ -173,7 +230,8 @@ export default async function ProductPage() {
                 Free UK delivery over £25
               </p>
               <p className="mt-1 text-sm font-bold text-[#f8ead4]/80">
-                Standard delivery is £3.99. The 6 Pack qualifies automatically.
+                Standard UK delivery is £1.99. Six or more jars qualify for
+                free standard delivery. Express options are available at checkout.
               </p>
             </div>
           </div>

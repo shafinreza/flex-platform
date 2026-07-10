@@ -881,3 +881,24 @@ body {
     transform: none;
   }
 }
+
+.legal-content h2 {
+  color: #173b2f;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+}
+
+.legal-content a {
+  color: #173b2f;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
